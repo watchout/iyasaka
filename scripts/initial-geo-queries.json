@@ -1,0 +1,216 @@
+[
+  {
+    "text": "配信 料金 相場",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "haishin-plus",
+    "enabled": true
+  },
+  {
+    "text": "配信 会社 選び方",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "haishin-plus",
+    "enabled": true
+  },
+  {
+    "text": "ハイブリッド 配信 依頼",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "haishin-plus",
+    "enabled": true
+  },
+  {
+    "text": "会議室 配信 代行",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "haishin-plus",
+    "enabled": true
+  },
+  {
+    "text": "Zoom Webinar YouTube 比較",
+    "intent": "compare",
+    "target_type": "product",
+    "target_slug": "haishin-plus",
+    "enabled": true
+  },
+  {
+    "text": "Teams ライブイベント 配信 違い",
+    "intent": "compare",
+    "target_type": "product",
+    "target_slug": "haishin-plus",
+    "enabled": true
+  },
+  {
+    "text": "配信 トラブル 原因",
+    "intent": "info",
+    "target_type": "product",
+    "target_slug": "haishin-plus",
+    "enabled": true
+  },
+  {
+    "text": "会議室 配信 構成 例",
+    "intent": "info",
+    "target_type": "product",
+    "target_slug": "haishin-plus",
+    "enabled": true
+  },
+  {
+    "text": "スピーカー ハウリング 対策 依頼",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "onsite-support",
+    "enabled": true
+  },
+  {
+    "text": "会議室 音響 改修 見積",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "onsite-support",
+    "enabled": true
+  },
+  {
+    "text": "HDMI マトリクス 8x4 価格 比較",
+    "intent": "compare",
+    "target_type": "product",
+    "target_slug": "onsite-support",
+    "enabled": true
+  },
+  {
+    "text": "Dante 導入 費用",
+    "intent": "compare",
+    "target_type": "product",
+    "target_slug": "onsite-support",
+    "enabled": true
+  },
+  {
+    "text": "非常放送 連動 音響",
+    "intent": "info",
+    "target_type": "product",
+    "target_slug": "onsite-support",
+    "enabled": true
+  },
+  {
+    "text": "天井スピーカー 台数 計算",
+    "intent": "info",
+    "target_type": "product",
+    "target_slug": "onsite-support",
+    "enabled": true
+  },
+  {
+    "text": "動画 翻訳 依頼 多言語",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "multilingual-plus",
+    "enabled": true
+  },
+  {
+    "text": "観光 動画 多言語 化 サービス",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "multilingual-plus",
+    "enabled": true
+  },
+  {
+    "text": "自動字幕 精度 比較",
+    "intent": "compare",
+    "target_type": "product",
+    "target_slug": "multilingual-plus",
+    "enabled": true
+  },
+  {
+    "text": "英語 中国語 ナレーション 料金",
+    "intent": "compare",
+    "target_type": "product",
+    "target_slug": "multilingual-plus",
+    "enabled": true
+  },
+  {
+    "text": "AI 翻訳 動画 ワークフロー",
+    "intent": "info",
+    "target_type": "product",
+    "target_slug": "multilingual-plus",
+    "enabled": true
+  },
+  {
+    "text": "中小企業 AI 導入 相談",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "ai-plus",
+    "enabled": true
+  },
+  {
+    "text": "社内 研修 AI 企画",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "ai-plus",
+    "enabled": true
+  },
+  {
+    "text": "AI 相談 ベンダー 比較",
+    "intent": "compare",
+    "target_type": "product",
+    "target_slug": "ai-plus",
+    "enabled": true
+  },
+  {
+    "text": "生成AI 研修 費用",
+    "intent": "compare",
+    "target_type": "product",
+    "target_slug": "ai-plus",
+    "enabled": true
+  },
+  {
+    "text": "社内FAQ AI 化 方法",
+    "intent": "info",
+    "target_type": "product",
+    "target_slug": "ai-plus",
+    "enabled": true
+  },
+  {
+    "text": "弱電工事 費用 目安",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "weak-current",
+    "enabled": true
+  },
+  {
+    "text": "会議室 音響設備 施工",
+    "intent": "convert",
+    "target_type": "product",
+    "target_slug": "weak-current",
+    "enabled": true
+  },
+  {
+    "text": "無線LAN 工事 業者 選び方",
+    "intent": "compare",
+    "target_type": "product",
+    "target_slug": "weak-current",
+    "enabled": true
+  },
+  {
+    "text": "LAN配線 CAT6A CAT7 違い",
+    "intent": "info",
+    "target_type": "product",
+    "target_slug": "weak-current",
+    "enabled": true
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

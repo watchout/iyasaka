@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Styles>
+    <Style ss:ID="Default" ss:Name="Normal">
+      <Alignment ss:Vertical="Bottom" />
+      <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000" />
+    </Style>
+    <Style ss:ID="sTitle">
+      <Font ss:Bold="1" ss:Size="14" ss:Color="#0F172A" />
+      <Alignment ss:Vertical="Center" />
+    </Style>
+    <Style ss:ID="sHeader">
+      <Font ss:Bold="1" ss:Color="#0F172A" />
+      <Alignment ss:Vertical="Center" ss:WrapText="1" />
+      <Interior ss:Color="#D9E1F2" ss:Pattern="Solid" />
+      <Borders>
+        <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" />
+      </Borders>
+    </Style>
+    <Style ss:ID="sWrap">
+      <Alignment ss:Vertical="Top" ss:WrapText="1" />
+    </Style>
+    <Style ss:ID="sYen">
+      <NumberFormat ss:Format="¥#,##0" />
+    </Style>
+    <Style ss:ID="sPercent">
+      <NumberFormat ss:Format="0%" />
+    </Style>
+    <Style ss:ID="sDate">
+      <NumberFormat ss:Format="yyyy-mm-dd" />
+    </Style>
+  </Styles>
+
+  <Worksheet ss:Name="README">
+    <Table ss:DefaultColumnWidth="140" ss:DefaultRowHeight="18">
+      <Column ss:Width="160" />
+      <Column ss:Width="560" />
+      <Row ss:AutoFitHeight="1">
+        <Cell ss:StyleID="sTitle" ss:MergeAcross="1">
+          <Data ss:Type="String">dev-OS 2026 売却実行計画（週次WBR / 月次MBR）</Data>
+        </Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">項目</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">内容</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">売り方</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">事業譲渡（顧客付き）</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">売却後の権利</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">IYASAKA 永久ライセンスバック（必須・非独占・取消不能・内部利用）</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">KGI</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">2026年内クローズ（入金）／譲渡対価 1億（前金＋アーンアウト合計）／永久ライセンスバック条項の確定</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">北極星（週次）</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">NDA締結済み買い手数（社）／承継可能な有償MRR（円）</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">運用ルール</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">週次WBR（30分）でスコア更新→未達の原因を1つ→打ち手は3つ以内。月次MBR（60分）で結果とリスク棚卸し→翌月ターゲット更新。</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">備考</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">Excelで本ファイル（.xml）を開いた後、「別名保存」で.xlsx化してください。</Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+
+  <Worksheet ss:Name="KPI定義">
+    <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="18">
+      <Column ss:Width="70" />
+      <Column ss:Width="170" />
+      <Column ss:Width="120" />
+      <Column ss:Width="360" />
+      <Column ss:Width="120" />
+      <Column ss:Width="70" />
+      <Column ss:Width="130" />
+      <Column ss:Width="110" />
+      <Column ss:Width="110" />
+      <Column ss:Width="240" />
+      <Row>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">KPI_ID</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">KPI名</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">区分</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">定義</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">算出方法</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">頻度</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">目標（例）</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">オーナー</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">ソース</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">注記</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">KGI-1</Data></Cell>
+        <Cell><Data ss:Type="String">クローズ（入金）</Data></Cell>
+        <Cell><Data ss:Type="String">KGI</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">2026年内に売却完了し入金まで確認する</Data></Cell>
+        <Cell><Data ss:Type="String">Yes/No</Data></Cell>
+        <Cell><Data ss:Type="String">月次</Data></Cell>
+        <Cell><Data ss:Type="String">Yes</Data></Cell>
+        <Cell><Data ss:Type="String">CEO</Data></Cell>
+        <Cell><Data ss:Type="String">入金/契約</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">契約締結ではなく入金まで</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">KGI-2</Data></Cell>
+        <Cell><Data ss:Type="String">譲渡対価</Data></Cell>
+        <Cell><Data ss:Type="String">KGI</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">前金＋アーンアウト合計の譲渡対価</Data></Cell>
+        <Cell><Data ss:Type="String">円</Data></Cell>
+        <Cell><Data ss:Type="String">月次</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">100000000</Data></Cell>
+        <Cell><Data ss:Type="String">CEO</Data></Cell>
+        <Cell><Data ss:Type="String">LOI/SPA</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">条件付き対価は達成条件も記録</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">KGI-3</Data></Cell>
+        <Cell><Data ss:Type="String">永久ライセンスバック</Data></Cell>
+        <Cell><Data ss:Type="String">KGI</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">非独占・取消不能で永久利用できる条項が最終契約に入っている</Data></Cell>
+        <Cell><Data ss:Type="String">Yes/No</Data></Cell>
+        <Cell><Data ss:Type="String">月次</Data></Cell>
+        <Cell><Data ss:Type="String">Yes</Data></Cell>
+        <Cell><Data ss:Type="String">法務/CEO</Data></Cell>
+        <Cell><Data ss:Type="String">TS/LOI/SPA</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">段階（TS→LOI→SPA）で管理</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">NS-1</Data></Cell>
+        <Cell><Data ss:Type="String">NDA締結済み買い手数</Data></Cell>
+        <Cell><Data ss:Type="String">北極星（週次）</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">実名交渉できる買い手数（累計）</Data></Cell>
+        <Cell><Data ss:Type="String">社数</Data></Cell>
+        <Cell><Data ss:Type="String">週次</Data></Cell>
+        <Cell><Data ss:Type="String">8</Data></Cell>
+        <Cell><Data ss:Type="String">BizDev</Data></Cell>
+        <Cell><Data ss:Type="String">パイプライン</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">意思決定者同席の面談も別で管理</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">NS-2</Data></Cell>
+        <Cell><Data ss:Type="String">承継可能MRR</Data></Cell>
+        <Cell><Data ss:Type="String">北極星（週次）</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">譲渡時に引き継げる契約のみのMRR合計</Data></Cell>
+        <Cell><Data ss:Type="String">円</Data></Cell>
+        <Cell><Data ss:Type="String">週次</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">2000000</Data></Cell>
+        <Cell><Data ss:Type="String">CS/経理</Data></Cell>
+        <Cell><Data ss:Type="String">契約/請求</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">承継同意が取れる契約だけ計上</Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+
+  <Worksheet ss:Name="週次WBR">
+    <Table ss:DefaultColumnWidth="92" ss:DefaultRowHeight="18">
+      <Column ss:Width="92" />
+      <Column ss:Width="48" />
+      <Column ss:Width="84" />
+      <Column ss:Width="84" />
+      <Column ss:Width="84" />
+      <Column ss:Width="84" />
+      <Column ss:Width="84" />
+      <Column ss:Width="84" />
+      <Column ss:Width="84" />
+      <Column ss:Width="84" />
+      <Column ss:Width="98" />
+      <Column ss:Width="98" />
+      <Column ss:Width="140" />
+      <Column ss:Width="140" />
+      <Column ss:Width="90" />
+      <Column ss:Width="90" />
+      <Column ss:Width="120" />
+      <Column ss:Width="120" />
+      <Column ss:Width="240" />
+      <Column ss:Width="260" />
+      <Column ss:Width="110" />
+      <Row>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">WeekStart</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">Wk</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">打診T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">打診A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">NDA T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">NDA A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">面談T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">面談A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">LOI T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">LOI A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">有償T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">有償A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">承継MRR T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">承継MRR A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">DR T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">DR A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">BlkMax T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">Blk A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">ボトルネック（1つ）</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">次の打ち手（3つ以内）</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">担当</Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-02-09T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="Number">10</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">0</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">0</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">0</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">0.3</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">3</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-02-16T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="Number">10</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">0</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">0</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">0</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">0.6</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-02-23T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">3</Data></Cell>
+        <Cell><Data ss:Type="Number">20</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">0</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">500000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-03-02T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">4</Data></Cell>
+        <Cell><Data ss:Type="Number">20</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">500000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-03-09T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">5</Data></Cell>
+        <Cell><Data ss:Type="Number">20</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">1500000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-03-16T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">6</Data></Cell>
+        <Cell><Data ss:Type="Number">20</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">1500000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-03-23T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">7</Data></Cell>
+        <Cell><Data ss:Type="Number">20</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">1500000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-03-30T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">8</Data></Cell>
+        <Cell><Data ss:Type="Number">20</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">1500000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-04-06T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">9</Data></Cell>
+        <Cell><Data ss:Type="Number">20</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">2000000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-04-13T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">10</Data></Cell>
+        <Cell><Data ss:Type="Number">20</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">2000000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-04-20T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">11</Data></Cell>
+        <Cell><Data ss:Type="Number">20</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">2000000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell ss:StyleID="sDate"><Data ss:Type="DateTime">2026-04-27T00:00:00.000</Data></Cell>
+        <Cell><Data ss:Type="Number">12</Data></Cell>
+        <Cell><Data ss:Type="Number">20</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">3</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">2000000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+
+  <Worksheet ss:Name="月次MBR">
+    <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="18">
+      <Column ss:Width="80" />
+      <Column ss:Width="130" />
+      <Column ss:Width="130" />
+      <Column ss:Width="130" />
+      <Column ss:Width="130" />
+      <Column ss:Width="90" />
+      <Column ss:Width="90" />
+      <Column ss:Width="100" />
+      <Column ss:Width="100" />
+      <Column ss:Width="100" />
+      <Column ss:Width="100" />
+      <Column ss:Width="100" />
+      <Column ss:Width="100" />
+      <Column ss:Width="80" />
+      <Column ss:Width="110" />
+      <Column ss:Width="110" />
+      <Column ss:Width="220" />
+      <Column ss:Width="220" />
+      <Column ss:Width="240" />
+      <Row>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">Month</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">承継MRR T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">承継MRR A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">ARR T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">ARR A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">有償T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">有償A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">Top1 T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">Top1 A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">NDA累計T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">NDA累計A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">LOI累計T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">LOI累計A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">DD社数</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">Close% T</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">Close% A</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">学び/所感</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">主要リスク</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">翌月の最優先（3つ）</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">2026-02</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">500000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">6000000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">0.8</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">0</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">0</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">0</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">2026-03</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">1500000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">18000000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">0.6</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">5</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">0</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">0.1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">2026-04</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">2000000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="Number">24000000</Data></Cell>
+        <Cell ss:StyleID="sYen"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">0.6</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">8</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">0.2</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+
+  <Worksheet ss:Name="データルーム">
+    <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="18">
+      <Column ss:Width="90" />
+      <Column ss:Width="380" />
+      <Column ss:Width="120" />
+      <Column ss:Width="110" />
+      <Column ss:Width="240" />
+      <Column ss:Width="240" />
+      <Row>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">領域</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">項目</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">担当</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">状態</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">リンク/パス</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">備考</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">IP</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">ソースコード権利関係（作成者/委託/譲渡）</Data></Cell>
+        <Cell><Data ss:Type="String">法務</Data></Cell>
+        <Cell><Data ss:Type="String">Not started</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">契約</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">顧客契約（承継同意条項/譲渡承諾）</Data></Cell>
+        <Cell><Data ss:Type="String">法務</Data></Cell>
+        <Cell><Data ss:Type="String">Not started</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">契約</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">永久ライセンスバック条項（雛形）</Data></Cell>
+        <Cell><Data ss:Type="String">法務</Data></Cell>
+        <Cell><Data ss:Type="String">Not started</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">運用</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">運用手順書（導入/保守/障害対応）</Data></Cell>
+        <Cell><Data ss:Type="String">CTO/CS</Data></Cell>
+        <Cell><Data ss:Type="String">Not started</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String">セキュリティ</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">権限/鍵/監査ログ（運用手順）</Data></Cell>
+        <Cell><Data ss:Type="String">CTO</Data></Cell>
+        <Cell><Data ss:Type="String">Not started</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+
+  <Worksheet ss:Name="買い手パイプライン">
+    <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="18">
+      <Column ss:Width="180" />
+      <Column ss:Width="100" />
+      <Column ss:Width="44" />
+      <Column ss:Width="120" />
+      <Column ss:Width="140" />
+      <Column ss:Width="90" />
+      <Column ss:Width="90" />
+      <Column ss:Width="90" />
+      <Column ss:Width="110" />
+      <Column ss:Width="70" />
+      <Column ss:Width="220" />
+      <Column ss:Width="180" />
+      <Column ss:Width="110" />
+      <Column ss:Width="180" />
+      <Row>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">買い手名</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">カテゴリ</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">Fit</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">チャネル</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">担当者/役職</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">打診日</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">NDA日</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">面談日</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">ステージ</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">確度</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">論点/条件</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">次アクション</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">オーナー</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">備考</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String">SI/受託</Data></Cell>
+        <Cell><Data ss:Type="String">A</Data></Cell>
+        <Cell><Data ss:Type="String">直打診</Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sDate"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sDate"><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sDate"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String">Prospect</Data></Cell>
+        <Cell ss:StyleID="sPercent"><Data ss:Type="Number">0.1</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">永久ライセンスバック必須</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+        <Cell><Data ss:Type="String"></Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String"></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+
+  <Worksheet ss:Name="12週ロードマップ">
+    <Table ss:DefaultColumnWidth="120" ss:DefaultRowHeight="18">
+      <Column ss:Width="46" />
+      <Column ss:Width="150" />
+      <Column ss:Width="360" />
+      <Column ss:Width="180" />
+      <Column ss:Width="110" />
+      <Column ss:Width="220" />
+      <Row>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">Week</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">フォーカス</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">成果物</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">KPIターゲット</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">担当</Data></Cell>
+        <Cell ss:StyleID="sHeader"><Data ss:Type="String">注記</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">1</Data></Cell>
+        <Cell><Data ss:Type="String">DD耐性の土台</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">事業境界図、IP棚卸し、外部依存棚卸し、データルーム目次</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">DR 30%、打診10</Data></Cell>
+        <Cell><Data ss:Type="String">法務/CTO</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">重大ブロッカーだけ数える</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">2</Data></Cell>
+        <Cell><Data ss:Type="String">DD耐性の土台（継続）</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">契約雛形、運用手順、Q&amp;A台帳を開始</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">DR 60%、NDA 1</Data></Cell>
+        <Cell><Data ss:Type="String">法務/BizDev</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">NDAが詰まるなら雛形改善</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">3</Data></Cell>
+        <Cell><Data ss:Type="String">顧客付きの商品化</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">導入パッケージ、ROIの測り方、デモ環境</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">有償パイロット 1、面談 2</Data></Cell>
+        <Cell><Data ss:Type="String">CTO/CS</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">有償化を先に</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">4</Data></Cell>
+        <Cell><Data ss:Type="String">買い手打診・面談</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">Teaser/CIM、掲載、意思決定者面談</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">NDA累計 5、LOI候補 1</Data></Cell>
+        <Cell><Data ss:Type="String">CEO/BizDev</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">2社並走（競争状態）を作る</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">5</Data></Cell>
+        <Cell><Data ss:Type="String">顧客を契約にする</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">承継可能契約（同意条項/請求/更新条件）へ寄せる</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">有償顧客 2、承継MRR 150万</Data></Cell>
+        <Cell><Data ss:Type="String">CS/法務</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">承継NG条項は即修正</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">6</Data></Cell>
+        <Cell><Data ss:Type="String">条件交渉</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">条件表（前金/アーンアウト/TSA/永久ライセンス）をテンプレ化</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">LOI候補 1（条件すり合わせ）</Data></Cell>
+        <Cell><Data ss:Type="String">CEO</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">永久ライセンスは必須条件として一貫</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">7</Data></Cell>
+        <Cell><Data ss:Type="String">DD準備</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">DDチェックリスト、Q&amp;A台帳、追加資料の整備</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">データルーム100%維持、ブロッカー 1以下</Data></Cell>
+        <Cell><Data ss:Type="String">法務/CTO</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">追加質問は台帳に集約</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">8</Data></Cell>
+        <Cell><Data ss:Type="String">DD進行</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">追加面談、Q&amp;A更新、並走2社の競争状態を維持</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">NDA累計 8、DD開始</Data></Cell>
+        <Cell><Data ss:Type="String">CEO/BizDev</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">価格を守るため競争状態を維持</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">9</Data></Cell>
+        <Cell><Data ss:Type="String">最終条件</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">SPAドラフト、TSA確定、承継同意の計画</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">クロージング 20%</Data></Cell>
+        <Cell><Data ss:Type="String">法務/CEO</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">契約リスクを潰す</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">10</Data></Cell>
+        <Cell><Data ss:Type="String">クロージング準備</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">顧客承継同意の回収、運用移行計画</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">クロージング 40%</Data></Cell>
+        <Cell><Data ss:Type="String">CS/法務</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">同意遅延が最大リスク</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">11</Data></Cell>
+        <Cell><Data ss:Type="String">移行</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">引継ぎ、運用レーン分離、責任分界の確定</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">クロージング 60%</Data></Cell>
+        <Cell><Data ss:Type="String">CTO/CS</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">障害対応の責任分界を明確に</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number">12</Data></Cell>
+        <Cell><Data ss:Type="String">クロージング</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">締結/入金/引継ぎ完了、永久ライセンス条項の最終確認</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">クローズ</Data></Cell>
+        <Cell><Data ss:Type="String">CEO</Data></Cell>
+        <Cell ss:StyleID="sWrap"><Data ss:Type="String">取消不能/非独占の最終確認</Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+</Workbook>

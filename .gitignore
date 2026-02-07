@@ -1,0 +1,41 @@
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Temp / scratch files
+t.csv
+t.txt
+geo_snapshot_resp.json
+dev-os_exit_plan_2026_excel.xml
+dev-os_exit_plan_2026_weekly_wbr.csv
+
+# PM2
+ecosystem.config.cjs
+
+# Build artifacts
+4100/
+
+# Binary / generated docs (keep in Google Drive, not git)
+*.xlsx
+*.xls

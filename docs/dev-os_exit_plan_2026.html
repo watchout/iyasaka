@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>dev-OS 2026 売却実行計画（WBR/MBR）テンプレ版</title>
+    <style>
+      :root {
+        --color-primary: #1a365d;
+        --color-accent: #ff9e00;
+        --color-organize: #3182ce;
+        --color-connect: #319795;
+        --color-nurture: #38a169;
+        --bg: #0b1220;
+        --panel: #0f1b33;
+        --panel-2: #101f3e;
+        --text: #f8fafc;
+        --muted: #cbd5e1;
+        --line: rgba(148, 163, 184, 0.25);
+        --danger: #ef4444;
+        --ok: #22c55e;
+        --warn: #f59e0b;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans JP",
+          "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: radial-gradient(1200px 700px at 10% -10%, rgba(49, 130, 206, 0.35), transparent 55%),
+          radial-gradient(1100px 700px at 95% -15%, rgba(255, 158, 0, 0.28), transparent 55%),
+          linear-gradient(180deg, #070b14 0%, #0b1220 45%, #070b14 100%);
+        color: var(--text);
+        font-family: var(--sans);
+        line-height: 1.55;
+      }
+
+      a {
+        color: #93c5fd;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .container {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 28px 20px 72px;
+      }
+
+      .hero {
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(15, 27, 51, 0.92), rgba(15, 27, 51, 0.75));
+        border-radius: 18px;
+        padding: 22px 22px 18px;
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 158, 0, 0.35);
+        background: rgba(255, 158, 0, 0.12);
+        color: #ffd08a;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.02em;
+      }
+
+      h1 {
+        margin: 12px 0 6px;
+        font-size: 26px;
+        line-height: 1.25;
+        letter-spacing: 0.02em;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .grid {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 12px;
+      }
+
+      .card {
+        grid-column: span 6;
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(16, 31, 62, 0.9), rgba(15, 27, 51, 0.7));
+        border-radius: 16px;
+        padding: 14px 14px 12px;
+      }
+
+      .card h2 {
+        margin: 0 0 8px;
+        font-size: 14px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        color: #bcd3ff;
+      }
+
+      .kv {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 10px 12px;
+        font-size: 14px;
+      }
+
+      .kv div:nth-child(odd) {
+        color: #b9c7dd;
+      }
+      .kv div:nth-child(even) {
+        color: var(--text);
+        font-weight: 650;
+      }
+
+      .toc {
+        grid-column: span 12;
+      }
+
+      .toc ul {
+        margin: 0;
+        padding-left: 18px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 18px;
+      }
+
+      .section {
+        margin-top: 18px;
+        border: 1px solid var(--line);
+        background: rgba(15, 27, 51, 0.55);
+        border-radius: 18px;
+        padding: 16px;
+      }
+
+      .section h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        letter-spacing: 0.02em;
+      }
+
+      .hint {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 10px 0 0;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.03);
+        font-size: 13px;
+        color: #dbeafe;
+      }
+
+      .pill b {
+        color: #fff;
+        font-weight: 800;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+        font-size: 13px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .table th,
+      .table td {
+        border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+        padding: 10px 10px;
+        vertical-align: top;
+      }
+
+      .table thead th {
+        background: rgba(26, 54, 93, 0.65);
+        color: #e2e8f0;
+        font-weight: 800;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      .table tbody tr:nth-child(odd) td {
+        background: rgba(255, 255, 255, 0.015);
+      }
+
+      .mono {
+        font-family: var(--mono);
+      }
+
+      .kpi {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .kpi .k {
+        grid-column: span 4;
+        padding: 14px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: rgba(16, 31, 62, 0.7);
+      }
+
+      .kpi .k .label {
+        font-size: 12px;
+        letter-spacing: 0.02em;
+        color: #b9c7dd;
+      }
+
+      .kpi .k .value {
+        margin-top: 6px;
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      .kpi .k .desc {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .rulebox {
+        margin-top: 10px;
+        padding: 12px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 158, 0, 0.35);
+        background: rgba(255, 158, 0, 0.08);
+        color: #ffe7bf;
+        font-size: 13px;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .check {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 1px solid rgba(226, 232, 240, 0.5);
+        border-radius: 3px;
+        margin-right: 8px;
+        vertical-align: -2px;
+      }
+
+      @media (max-width: 940px) {
+        .card {
+          grid-column: span 12;
+        }
+        .toc ul {
+          grid-template-columns: 1fr;
+        }
+        .kpi .k {
+          grid-column: span 12;
+        }
+        .split {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media print {
+        body {
+          background: #fff;
+          color: #111827;
+        }
+        a {
+          color: #1d4ed8;
+        }
+        .container {
+          max-width: none;
+          padding: 0;
+        }
+        .hero,
+        .section,
+        .card,
+        .kpi .k {
+          background: #fff !important;
+          box-shadow: none !important;
+          border-color: #e5e7eb !important;
+        }
+        .badge,
+        .rulebox,
+        .pill {
+          border-color: #e5e7eb !important;
+          background: #fff !important;
+          color: #111827 !important;
+        }
+        .table {
+          border-color: #e5e7eb;
+        }
+        .table thead th {
+          background: #f3f4f6 !important;
+          color: #111827 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="hero">
+        <div class="badge">整える / Foundation ・ EDOP（Exit-driven Operating Plan）</div>
+        <h1>dev-OS 2026 売却実行計画（週次WBR / 月次MBR スコアカード）</h1>
+        <p class="subtitle">
+          ミッション「今ある『不』を、未来の『光』へ。」を守りつつ、dev-OSを“顧客付き事業譲渡”で成立させるための運用テンプレ。
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h2>ディール前提</h2>
+            <div class="kv">
+              <div>売り方</div>
+              <div>事業譲渡（顧客付き）</div>
+              <div>利用権</div>
+              <div>永久ライセンスバック（必須）</div>
+              <div>最終目標</div>
+              <div>2026年内クローズ（入金）・譲渡対価 1億（前金＋アーンアウト合計）</div>
+            </div>
+            <p class="hint">ポイント: 「顧客」と「再現性（運用・DD耐性）」が揃うほど、価格が守れます。</p>
+          </div>
+
+          <div class="card">
+            <h2>北極星（週次）</h2>
+            <div class="kv">
+              <div>NS-1</div>
+              <div>NDA締結済み買い手数（社）</div>
+              <div>NS-2</div>
+              <div>承継可能な有償MRR（円）</div>
+            </div>
+            <p class="hint">週次WBRは「赤の原因を1つだけ潰す」。打ち手は3つ以内。</p>
+          </div>
+
+          <div class="card toc">
+            <h2>目次</h2>
+            <ul>
+              <li><a href="#kgi">KGI / 必須条件</a></li>
+              <li><a href="#scorecard">週次WBRスコアカード</a></li>
+              <li><a href="#wbr">週次WBR（12週）</a></li>
+              <li><a href="#mbr">月次MBR（結果）</a></li>
+              <li><a href="#dataroom">データルーム（DD）チェックリスト</a></li>
+              <li><a href="#pipeline">買い手パイプライン</a></li>
+              <li><a href="#roadmap">12週ロードマップ</a></li>
+              <li><a href="#notes">運用ルール</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="kgi" class="section">
+        <h3>KGI / 必須条件</h3>
+        <div class="kpi">
+          <div class="k">
+            <div class="label">KGI-1</div>
+            <div class="value">2026年内クローズ（入金）</div>
+            <div class="desc">契約締結ではなく、入金確認まで。</div>
+          </div>
+          <div class="k">
+            <div class="label">KGI-2</div>
+            <div class="value">譲渡対価 1億（合計）</div>
+            <div class="desc">前金＋アーンアウト。条件付きは達成条件も明記。</div>
+          </div>
+          <div class="k">
+            <div class="label">KGI-3（必須）</div>
+            <div class="value">永久ライセンスバック</div>
+            <div class="desc">非独占・取消不能・IYASAKA内部利用（提供物の開発運用を含む）。</div>
+          </div>
+        </div>
+        <div class="rulebox">
+          <b>死守する一文（要点）</b>:
+          「買い手はIYASAKAに対し、dev-OSを永久・非独占・取消不能で利用できる権利を付与する。IYASAKAは自社提供物の開発・運用に必要な範囲で改変・複製・利用できる。」
+        </div>
+      </div>
+
+      <div id="scorecard" class="section">
+        <h3>週次WBRスコアカード（10指標以内）</h3>
+        <div class="pill-row">
+          <div class="pill"><b>買い手</b> 打診 → NDA → 面談（意思決定者） → LOI → DD</div>
+          <div class="pill"><b>顧客</b> 有償化 → 承継可能契約 → MRR積み上げ</div>
+          <div class="pill"><b>DD</b> データルーム完成度 → ブロッカー（重大のみ）</div>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>カテゴリ</th>
+              <th>KPI</th>
+              <th>定義</th>
+              <th>週次の目安</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>買い手</td>
+              <td>新規打診数</td>
+              <td>今週、新たに接触した買い手（社）</td>
+              <td>10〜20社</td>
+            </tr>
+            <tr>
+              <td>買い手</td>
+              <td>NDA獲得数</td>
+              <td>今週、新たにNDA締結した件数</td>
+              <td>1〜2社</td>
+            </tr>
+            <tr>
+              <td>買い手</td>
+              <td>面談数</td>
+              <td>意思決定者が参加した面談回数</td>
+              <td>1〜2回</td>
+            </tr>
+            <tr>
+              <td>買い手</td>
+              <td>LOI進行数</td>
+              <td>LOI依頼済み/条件交渉中の社数</td>
+              <td>常に1社以上</td>
+            </tr>
+            <tr>
+              <td>顧客</td>
+              <td>有償顧客数</td>
+              <td>承継可能契約の社数</td>
+              <td>2社以上（早期）</td>
+            </tr>
+            <tr>
+              <td>顧客</td>
+              <td>承継可能MRR</td>
+              <td>譲渡時に引き継げる契約のみ（円）</td>
+              <td>150万→200万</td>
+            </tr>
+            <tr>
+              <td>DD</td>
+              <td>データルーム完成度</td>
+              <td>DDに必要な資料の完成率</td>
+              <td>60%→100%</td>
+            </tr>
+            <tr>
+              <td>DD</td>
+              <td>重大ブロッカー数</td>
+              <td>止まる論点（IP/契約承継/セキュリティ/運用引継ぎ）の数</td>
+              <td>1以下</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="hint">このスコアカードが「緑」になるほど、買い手の不安が消え、価格が守れます（不→光）。</p>
+      </div>
+
+      <div id="wbr" class="section">
+        <h3>週次WBR（12週）テンプレ</h3>
+        <p class="hint">
+          各週の「Actual」を埋め、未達（赤）になった原因を <b>1つ</b> だけ書き、次の打ち手を <b>3つ以内</b> に絞ります。
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>WeekStart</th>
+              <th>打診T/A</th>
+              <th>NDA T/A</th>
+              <th>面談 T/A</th>
+              <th>LOI T/A</th>
+              <th>有償顧客 T/A</th>
+              <th>承継MRR T/A（円）</th>
+              <th>DR T/A</th>
+              <th>Blockers</th>
+              <th>ボトルネック</th>
+              <th>次の打ち手（3つ）</th>
+              <th>担当</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">2026-02-09</td>
+              <td>10 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>0 / <span class="muted">__</span></td>
+              <td>0 / <span class="muted">__</span></td>
+              <td>0 / <span class="muted">__</span></td>
+              <td>30% / <span class="muted">__</span></td>
+              <td>≤3 / <span class="muted">__</span></td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td class="mono">2026-02-16</td>
+              <td>10 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>0 / <span class="muted">__</span></td>
+              <td>0 / <span class="muted">__</span></td>
+              <td>0 / <span class="muted">__</span></td>
+              <td>60% / <span class="muted">__</span></td>
+              <td>≤2 / <span class="muted">__</span></td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td class="mono">2026-02-23</td>
+              <td>20 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>2 / <span class="muted">__</span></td>
+              <td>0 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>500,000 / <span class="muted">__</span></td>
+              <td>100% / <span class="muted">__</span></td>
+              <td>≤2 / <span class="muted">__</span></td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td class="mono">2026-03-02</td>
+              <td>20 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>2 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>500,000 / <span class="muted">__</span></td>
+              <td>100% / <span class="muted">__</span></td>
+              <td>≤1 / <span class="muted">__</span></td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td class="mono">2026-03-09</td>
+              <td>20 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>2 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>2 / <span class="muted">__</span></td>
+              <td>1,500,000 / <span class="muted">__</span></td>
+              <td>100% / <span class="muted">__</span></td>
+              <td>≤1 / <span class="muted">__</span></td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td class="mono">2026-04-06</td>
+              <td>20 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>2 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>2 / <span class="muted">__</span></td>
+              <td>2,000,000 / <span class="muted">__</span></td>
+              <td>100% / <span class="muted">__</span></td>
+              <td>≤1 / <span class="muted">__</span></td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="hint">（行を追加して使ってください。上は“目安ターゲット”の一例です。）</p>
+      </div>
+
+      <div id="mbr" class="section">
+        <h3>月次MBR（結果）テンプレ</h3>
+        <div class="split">
+          <div>
+            <p class="hint">
+              月次は「結果」と「リスク」を棚卸しして、翌月ターゲットを一段上げます。<br />
+              <span class="muted">ARR run-rate は <span class="mono">MRR × 12</span> の簡易でOK。</span>
+            </p>
+          </div>
+          <div>
+            <p class="hint">
+              顧客集中リスク（Top1比率）が高いと売却が難しくなります。<br />
+              <span class="muted">目安: Top1比率 60%以下を目標。</span>
+            </p>
+          </div>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>承継MRR T/A（円）</th>
+              <th>ARR run-rate T/A（円）</th>
+              <th>有償顧客 T/A</th>
+              <th>Top1比率 T/A</th>
+              <th>NDA累計 T/A</th>
+              <th>LOI累計 T/A</th>
+              <th>DD進行</th>
+              <th>学び/所感</th>
+              <th>主要リスク</th>
+              <th>翌月の最優先（3つ）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">2026-02</td>
+              <td>500,000 / <span class="muted">__</span></td>
+              <td>6,000,000 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td>80% / <span class="muted">__</span></td>
+              <td>2 / <span class="muted">__</span></td>
+              <td>0 / <span class="muted">__</span></td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td class="mono">2026-03</td>
+              <td>1,500,000 / <span class="muted">__</span></td>
+              <td>18,000,000 / <span class="muted">__</span></td>
+              <td>2 / <span class="muted">__</span></td>
+              <td>60% / <span class="muted">__</span></td>
+              <td>5 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td class="mono">2026-04</td>
+              <td>2,000,000 / <span class="muted">__</span></td>
+              <td>24,000,000 / <span class="muted">__</span></td>
+              <td>2 / <span class="muted">__</span></td>
+              <td>60% / <span class="muted">__</span></td>
+              <td>8 / <span class="muted">__</span></td>
+              <td>1 / <span class="muted">__</span></td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="dataroom" class="section">
+        <h3>データルーム（DD）チェックリスト</h3>
+        <p class="hint">「買い手の不安」を消すための棚卸し。止まる論点（重大ブロッカー）は週次WBRで必ず潰す。</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>完了</th>
+              <th>領域</th>
+              <th>項目</th>
+              <th>担当</th>
+              <th>状態</th>
+              <th>リンク/パス</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="check"></span></td>
+              <td>IP</td>
+              <td>ソースコード権利関係（作成者/委託/譲渡）</td>
+              <td>法務</td>
+              <td class="muted">Not started</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td><span class="check"></span></td>
+              <td>契約</td>
+              <td>顧客契約（承継同意条項/譲渡承諾）</td>
+              <td>法務</td>
+              <td class="muted">Not started</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td><span class="check"></span></td>
+              <td>契約</td>
+              <td>永久ライセンスバック条項（雛形）</td>
+              <td>法務</td>
+              <td class="muted">Not started</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td><span class="check"></span></td>
+              <td>運用</td>
+              <td>運用手順書（導入/保守/障害対応）</td>
+              <td>CTO/CS</td>
+              <td class="muted">Not started</td>
+              <td class="muted">__</td>
+            </tr>
+            <tr>
+              <td><span class="check"></span></td>
+              <td>セキュリティ</td>
+              <td>権限/鍵/監査ログ（運用手順）</td>
+              <td>CTO</td>
+              <td class="muted">Not started</td>
+              <td class="muted">__</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="pipeline" class="section">
+        <h3>買い手パイプライン（テンプレ）</h3>
+        <p class="hint">
+          「現実的な買い手」= 中堅の受託/SI（生成AIで開発生産性・品質の標準化が経営課題）を最優先。次点は買収慣れのITサービス。
+        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>買い手名</th>
+              <th>カテゴリ</th>
+              <th>Fit</th>
+              <th>チャネル</th>
+              <th>担当者/役職</th>
+              <th>ステージ</th>
+              <th>確度</th>
+              <th>論点/条件</th>
+              <th>次アクション</th>
+              <th>オーナー</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="muted">__</td>
+              <td>SI/受託</td>
+              <td>A</td>
+              <td>直打診 / TRANBI / BATONZ</td>
+              <td class="muted">__</td>
+              <td>Prospect</td>
+              <td class="muted">10%</td>
+              <td>永久ライセンスバック必須</td>
+              <td class="muted">__</td>
+              <td class="muted">__</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="roadmap" class="section">
+        <h3>12週ロードマップ（例）</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>フォーカス</th>
+              <th>成果物</th>
+              <th>KPIターゲット</th>
+              <th>担当</th>
+              <th>注記</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">1</td>
+              <td>DD耐性の土台</td>
+              <td>事業境界図、IP棚卸し、外部依存棚卸し、データルーム目次</td>
+              <td>DR 30%、打診10</td>
+              <td>法務/CTO</td>
+              <td>重大ブロッカーだけ数える</td>
+            </tr>
+            <tr>
+              <td class="mono">2</td>
+              <td>DD耐性の土台（継続）</td>
+              <td>契約雛形、運用手順、Q&amp;A台帳</td>
+              <td>DR 60%、NDA1</td>
+              <td>法務/BizDev</td>
+              <td>NDAが詰まるなら雛形改善</td>
+            </tr>
+            <tr>
+              <td class="mono">3</td>
+              <td>顧客付きに必要な商品化</td>
+              <td>導入パッケージ、ROIの測り方、デモ環境</td>
+              <td>有償パイロット1、面談2</td>
+              <td>CTO/CS</td>
+              <td>有償化を先に</td>
+            </tr>
+            <tr>
+              <td class="mono">4</td>
+              <td>買い手打診・面談</td>
+              <td>Teaser/CIM、掲載、意思決定者面談</td>
+              <td>NDA累計5、LOI候補1</td>
+              <td>CEO/BizDev</td>
+              <td>2社並走を作る</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="hint">（Week 5以降も同様に追記して使ってください）</p>
+      </div>
+
+      <div id="notes" class="section">
+        <h3>運用ルール（最小）</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>リズム</th>
+              <th>時間</th>
+              <th>やること</th>
+              <th>アウトプット</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>週次WBR</td>
+              <td>30分</td>
+              <td>スコア更新 → 未達の原因を1つ → 打ち手3つ以内</td>
+              <td>次週の“赤を潰す行動”が明確</td>
+            </tr>
+            <tr>
+              <td>月次MBR</td>
+              <td>60分</td>
+              <td>MRR/顧客/買い手/DDリスク棚卸し → ターゲット更新</td>
+              <td>翌月ターゲットと優先順位が固定</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="hint">このテンプレは「不（不安/属人化）→光（確信/再現性）→弥栄（持続）」の順で、交渉を前に進めるための道具です。</p>
+      </div>
+    </div>
+  </body>
+</html>
