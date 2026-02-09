@@ -29,6 +29,12 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
 
+  // Vue 3.5+ で SSR の async context が正しく伝播するように有効化。
+  // これがないと useNuxtApp() が production ビルドで instance unavailable になる。
+  experimental: {
+    asyncContext: true
+  },
+
   runtimeConfig: {
     supabaseUrl: process.env.SUPABASE_URL || '',
     supabaseServiceKey: process.env.SUPABASE_SERVICE_KEY || '',
@@ -111,6 +117,18 @@ export default defineNuxtConfig({
     // Supabase クライアントはバンドラにインラインさせ、解決を安定化させる
     externals: {
       inline: ['@supabase/supabase-js']
+    },
+    // Vue 3.5 + Nuxt 3.10 で @__PURE__ アノテーションにより
+    // useNuxtApp / tryUseNuxtApp がツリーシェイクで除去される問題の回避
+    rollupConfig: {
+      output: {
+        generatedCode: {
+          constBindings: true
+        }
+      },
+      treeshake: {
+        annotations: false
+      }
     }
   },
 
