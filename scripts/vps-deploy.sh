@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # VPS deploy script for IYASAKA Nuxt production
-# Usage: ssh arrowsworks@160.251.209.16 'bash /home/arrowsworks/iyasaka/scripts/vps-deploy.sh'
+# Usage: ssh arrowsworks@160.251.209.16 'bash /home/arrowsworks/iyasaka-release/scripts/vps-deploy.sh'
 set -euo pipefail
 
-PROJECT_DIR="/home/arrowsworks/iyasaka"
+PROJECT_DIR="/home/arrowsworks/iyasaka-release"
 PM2_NAME="iyasaka-nuxt"
 
 cd "$PROJECT_DIR"
@@ -23,8 +23,11 @@ if [ ! -f ".output/server/index.mjs" ]; then
   exit 1
 fi
 
-echo "=== pm2 restart ==="
-pm2 restart "$PM2_NAME" || pm2 start ecosystem.config.cjs
+echo "=== load .env and pm2 restart ==="
+set -a && source .env && set +a
+pm2 restart "$PM2_NAME" || \
+  NODE_ENV=production PORT=4100 HOST=127.0.0.1 \
+  pm2 start .output/server/index.mjs --name "$PM2_NAME"
 
 echo "=== health check (wait 3s) ==="
 sleep 3

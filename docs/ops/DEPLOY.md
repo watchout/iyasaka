@@ -6,10 +6,11 @@
 |------|-------|
 | VPS | ConoHa / Ubuntu 22.04 |
 | IP | `160.251.209.16` |
-| Project path | `/home/arrowsworks/iyasaka` |
+| Project path | `/home/arrowsworks/iyasaka-release` |
 | PM2 process | `iyasaka-nuxt` |
 | Port | 4100 |
 | Domain | `iyasaka.co` / `www.iyasaka.co` |
+| SSL | Let's Encrypt (certbot, auto-renewal) |
 
 ---
 
@@ -21,10 +22,13 @@ git add -A && git commit -m "feat: ..." && git push origin main
 
 # 2. VPS: pull, build, restart
 ssh arrowsworks@160.251.209.16
-cd /home/arrowsworks/iyasaka
+cd /home/arrowsworks/iyasaka-release
 git pull origin main
 pnpm install --frozen-lockfile
 pnpm run build
+
+# .env を読み込んでから PM2 再起動
+set -a && source .env && set +a
 pm2 restart iyasaka-nuxt
 pm2 logs iyasaka-nuxt --lines 20
 ```
@@ -32,77 +36,30 @@ pm2 logs iyasaka-nuxt --lines 20
 or use the deploy script:
 
 ```bash
-ssh arrowsworks@160.251.209.16 'bash /home/arrowsworks/iyasaka/scripts/vps-deploy.sh'
+ssh arrowsworks@160.251.209.16 'bash /home/arrowsworks/iyasaka-release/scripts/vps-deploy.sh'
 ```
 
 ---
 
-## Initial VPS Setup (one-time)
+## PM2 Startup (important)
 
-### 1. Production build
-
-```bash
-cd /home/arrowsworks/iyasaka
-pnpm install --frozen-lockfile
-pnpm run build
-# Verify .output/server/index.mjs exists
-ls -la .output/server/index.mjs
-```
-
-### 2. PM2 production config
+PM2 は `.env` を自動で読み込まないため、起動/再起動時は必ず
+先に `.env` を source してから実行する。
 
 ```bash
-# Copy template and adjust if needed
-cp ecosystem.config.example.cjs ecosystem.config.cjs
-mkdir -p logs
-
-# Stop old dev process
-pm2 delete iyasaka-nuxt 2>/dev/null || true
-
-# Start production
-pm2 start ecosystem.config.cjs
+cd /home/arrowsworks/iyasaka-release
+set -a && source .env && set +a
+NODE_ENV=production PORT=4100 HOST=127.0.0.1 \
+  pm2 start .output/server/index.mjs --name iyasaka-nuxt
 pm2 save
-
-# Verify
-pm2 list
-curl -s http://127.0.0.1:4100/ | head -5
 ```
 
-### 3. Nginx for iyasaka.co
-
+再起動の場合:
 ```bash
-# Copy config
-sudo cp docs/ops/nginx/iyasaka.co.conf /etc/nginx/sites-available/iyasaka.co.conf
-
-# Before SSL: comment out the listen 443 block
-sudo vim /etc/nginx/sites-available/iyasaka.co.conf
-
-# Enable
-sudo ln -s /etc/nginx/sites-available/iyasaka.co.conf /etc/nginx/sites-enabled/
-sudo nginx -t && sudo systemctl reload nginx
+cd /home/arrowsworks/iyasaka-release
+set -a && source .env && set +a
+pm2 restart iyasaka-nuxt
 ```
-
-### 4. SSL (Let's Encrypt)
-
-```bash
-# Install certbot if not present
-sudo apt update && sudo apt install -y certbot python3-certbot-nginx
-
-# Get certificate (certbot modifies the nginx config automatically)
-sudo certbot --nginx -d iyasaka.co -d www.iyasaka.co
-
-# Verify auto-renewal
-sudo certbot renew --dry-run
-```
-
-### 5. DNS
-
-Ensure these records exist at your domain registrar:
-
-| Type | Name | Value |
-|------|------|-------|
-| A | `iyasaka.co` | `160.251.209.16` |
-| A | `www.iyasaka.co` | `160.251.209.16` |
 
 ---
 
@@ -115,6 +72,9 @@ curl -I http://iyasaka.co
 # HTTPS response
 curl -I https://iyasaka.co
 
+# www -> apex redirect
+curl -I https://www.iyasaka.co
+
 # Health check
 curl -s https://iyasaka.co/api/health/supabase
 ```
@@ -124,11 +84,11 @@ curl -s https://iyasaka.co/api/health/supabase
 ## Rollback
 
 ```bash
-# Revert to previous commit
-cd /home/arrowsworks/iyasaka
+cd /home/arrowsworks/iyasaka-release
 git log --oneline -5
 git checkout <previous-commit-hash>
 pnpm run build
+set -a && source .env && set +a
 pm2 restart iyasaka-nuxt
 ```
 
@@ -144,6 +104,7 @@ pm2 monit                        # Resource monitor
 pm2 restart iyasaka-nuxt         # Restart
 pm2 stop iyasaka-nuxt            # Stop
 pm2 delete iyasaka-nuxt          # Remove
+pm2 env 0                        # Check env vars for process 0
 ```
 
 ---
@@ -152,16 +113,50 @@ pm2 delete iyasaka-nuxt          # Remove
 
 | Log | Path |
 |-----|------|
-| PM2 stdout | `/home/arrowsworks/iyasaka/logs/out.log` |
-| PM2 stderr | `/home/arrowsworks/iyasaka/logs/error.log` |
+| PM2 stdout | `~/.pm2/logs/iyasaka-nuxt-out.log` |
+| PM2 stderr | `~/.pm2/logs/iyasaka-nuxt-error.log` |
 | Nginx access | `/var/log/nginx/access.log` |
 | Nginx error | `/var/log/nginx/error.log` |
 
 ---
 
+## SSL (completed)
+
+- certbot + nginx plugin で取得済み
+- 自動更新: `sudo certbot renew --dry-run` で確認
+- 証明書: `/etc/letsencrypt/live/iyasaka.co/`
+
+---
+
+## Nginx
+
+- Config: `/etc/nginx/sites-available/iyasaka.co.conf`
+- upstream `nuxt_iyasaka` は `arrowsworks.conf` で定義 (127.0.0.1:4100)
+- 変更時は必ず `sudo nginx -t && sudo systemctl reload nginx`
+- 既存サービス (arrowsworks / plane / nc / linker) に触れない
+
+---
+
+## Key Technical Notes
+
+### SSR build fix (treeshake)
+
+Vue 3.5 + Nuxt 3.10 の組み合わせでは、Rollup の `@__PURE__` アノテーションにより
+`tryUseNuxtApp()` がツリーシェイクで除去され、本番ビルドで
+`[nuxt] instance unavailable` エラーが発生する。
+
+`nuxt.config.ts` の `nitro.rollupConfig.treeshake.annotations = false` で回避済み。
+
+### baseURL
+
+`nuxt.config.ts` で `process.env.NUXT_APP_BASE_URL || '/'` を使用。
+ドメイン直下アクセス (iyasaka.co) ではデフォルトの `/` で動作する。
+
+---
+
 ## Constraints
 
-- `.env` is never committed (`.gitignore` enforced)
-- Do not edit code directly on VPS
-- Always `nginx -t` before `systemctl reload nginx`
-- Do not touch: arrowsworks.com / plane / nc / linker configs
+- `.env` は Git に入れない (`.gitignore` で除外済み)
+- VPS 上で直接コードを編集しない
+- 変更は local -> push -> VPS pull の流れで
+- `nginx -t` を必ず通してから reload
