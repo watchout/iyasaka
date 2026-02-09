@@ -81,8 +81,10 @@ export default defineNuxtConfig({
   },
 
   // アプリ設定
+  // ドメイン直下（iyasaka.co）では '/' を使う。
+  // IP直アクセス（/iyasaka/ パス）時は環境変数で上書き可能。
   app: {
-    baseURL: '/iyasaka/',
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
