@@ -12,6 +12,12 @@ export const experiments: Record<string, Experiment> = {
     variants: [0, 1],
     kpi: "cta_hero_jv",
   },
+  aiplus_hero: {
+    id: "aiplus_hero",
+    active: true,
+    variants: [0, 1, 2],
+    kpi: "aiplus_cta_click",
+  },
 };
 
 

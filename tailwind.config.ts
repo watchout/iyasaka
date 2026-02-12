@@ -21,6 +21,13 @@ export default <Partial<Config>>{
         'warning': '#D4A574',        // 警告（和の金）
         'error': '#B7410E',          // エラー（和の赤）
         
+        // AIPlus LP専用
+        'aiplus-navy': '#1a365d',    // LPメインカラー
+        'aiplus-blue': '#3b82f6',    // LPアクセント
+        'aiplus-cta': '#f97316',     // LP CTA（オレンジ）
+        'aiplus-cta-hover': '#ea580c', // LP CTAホバー
+        'aiplus-light': '#eff6ff',   // LP薄青背景
+
         // レガシー（互換性のため維持）
         'kinari': '#F5F3EF',         // 生成り
         'gyoko': '#FF9E00',          // 旧・暁光
@@ -62,6 +69,8 @@ export default <Partial<Config>>{
         'card-hover': '0 16px 48px rgba(26, 26, 26, 0.12)',
         'cta': '0 4px 16px rgba(255, 107, 53, 0.3)',
         'cta-hover': '0 8px 24px rgba(255, 107, 53, 0.4)',
+        'aiplus-cta': '0 4px 16px rgba(249, 115, 22, 0.3)',
+        'aiplus-cta-hover': '0 8px 24px rgba(249, 115, 22, 0.4)',
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out',
