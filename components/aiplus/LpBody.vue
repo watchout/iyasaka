@@ -31,9 +31,13 @@ const props = defineProps<{
   trackConversion: (eventName: string) => void
 }>()
 
-// CTA クリックハンドラ
-const onCtaClick = () => {
+// CTA クリックハンドラ（v2: location-specific tracking）
+const { trackCTAClick } = useAnalytics()
+const onCtaClick = (location?: string) => {
   props.trackConversion('aiplus_cta_click')
+  if (location) {
+    trackCTAClick(location)
+  }
 }
 
 // FAQ開閉状態
@@ -73,6 +77,16 @@ const flowIcons = [
       </div>
 
       <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+        <!-- ロゴ -->
+        <div class="mb-8">
+          <img
+            src="/images/aiplus/logo-full.png"
+            srcset="/images/aiplus/logo-full.png 1x, /images/aiplus/logo-full-2x.png 2x"
+            alt="AIプラス"
+            class="h-20 md:h-28 lg:h-32 w-auto mx-auto brightness-0 invert"
+          >
+        </div>
+
         <!-- 5社限定バッジ -->
         <div class="inline-block px-4 py-1.5 bg-aiplus-cta/20 text-aiplus-cta rounded-full text-sm font-bold mb-8 border border-aiplus-cta/30">
           {{ heroCommon.narrowingBadge }}
@@ -87,16 +101,11 @@ const flowIcons = [
           {{ variant.subcopy }}
         </p>
 
-        <!-- 説明文 -->
-        <p class="text-base md:text-lg text-white/70 mb-10 whitespace-pre-line max-w-2xl mx-auto">
-          {{ heroCommon.description }}
-        </p>
-
         <!-- CTA -->
         <NuxtLink
           :to="heroCommon.ctaLink"
           class="inline-flex items-center gap-3 px-10 py-5 bg-aiplus-cta text-white rounded-full font-bold text-lg shadow-aiplus-cta hover:bg-aiplus-cta-hover hover:shadow-aiplus-cta-hover hover:-translate-y-1 transition-all"
-          @click="onCtaClick"
+          @click="onCtaClick('hero')"
         >
           {{ heroCommon.ctaText }}
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -107,6 +116,11 @@ const flowIcons = [
         <!-- リスクリバーサル -->
         <p class="text-sm text-white/50 mt-4">
           {{ heroCommon.riskReversal }}
+        </p>
+
+        <!-- 説明文（CTA下に配置） -->
+        <p class="text-base md:text-lg text-white/70 mt-10 whitespace-pre-line max-w-2xl mx-auto">
+          {{ heroCommon.description }}
         </p>
       </div>
     </section>
@@ -283,7 +297,7 @@ const flowIcons = [
           <NuxtLink
             :to="heroCommon.ctaLink"
             class="inline-flex items-center gap-3 px-8 py-4 bg-aiplus-cta text-white rounded-full font-bold shadow-aiplus-cta hover:bg-aiplus-cta-hover hover:shadow-aiplus-cta-hover hover:-translate-y-0.5 transition-all"
-            @click="onCtaClick"
+            @click="onCtaClick('case_studies')"
           >
             {{ heroCommon.ctaText }}
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -421,7 +435,7 @@ const flowIcons = [
         <NuxtLink
           :to="narrowing.ctaLink"
           class="inline-flex items-center gap-3 px-10 py-5 bg-aiplus-cta text-white rounded-full font-bold text-lg shadow-aiplus-cta hover:bg-aiplus-cta-hover hover:shadow-aiplus-cta-hover hover:-translate-y-1 transition-all"
-          @click="onCtaClick"
+          @click="onCtaClick('narrowing')"
         >
           {{ narrowing.ctaText }}
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -489,7 +503,7 @@ const flowIcons = [
         <NuxtLink
           :to="footerCta.ctaLink"
           class="inline-flex items-center gap-3 px-12 py-6 bg-aiplus-cta text-white rounded-full font-bold text-xl shadow-aiplus-cta hover:bg-aiplus-cta-hover hover:shadow-aiplus-cta-hover hover:-translate-y-1 transition-all"
-          @click="onCtaClick"
+          @click="onCtaClick('footer')"
         >
           {{ footerCta.ctaText }}
           <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

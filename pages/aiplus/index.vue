@@ -23,6 +23,15 @@ useSeoMeta({
 })
 
 const { variant, trackConversion } = useABTest('aiplus_hero', '')
+
+// v2: analytics tracking
+const { initTracking } = useTracking()
+const { trackLPView } = useAnalytics()
+
+onMounted(() => {
+  initTracking()
+  trackLPView()
+})
 </script>
 
 <template>

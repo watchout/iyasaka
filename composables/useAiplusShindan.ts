@@ -39,6 +39,7 @@ export function useAiplusShindan() {
     company: '',
     name: '',
     email: '',
+    companyUrl: '',
     phone: '',
     website: '', // honeypot
   })
@@ -61,6 +62,8 @@ export function useAiplusShindan() {
           && leadData.name.trim() !== ''
           && leadData.email.trim() !== ''
           && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(leadData.email)
+          && leadData.companyUrl.trim() !== ''
+          && /^https?:\/\/.+\..+/.test(leadData.companyUrl.trim())
         )
       default: return false
     }
@@ -117,6 +120,7 @@ export function useAiplusShindan() {
         company: leadData.company,
         name: leadData.name,
         email: leadData.email,
+        companyUrl: leadData.companyUrl,
         phone: leadData.phone,
       },
       completedAt: new Date().toISOString(),
