@@ -31,6 +31,42 @@ const result = ref<ShindanResult | null>(null)
 const ready = ref(false)
 const pageEnteredAt = ref(0)
 
+// -- Section reveal animation --
+const visibleSections = ref<number[]>([])
+const totalSections = 6
+
+const revealSections = (): void => {
+  let delay = 400
+  for (let i = 1; i <= totalSections; i++) {
+    setTimeout(() => {
+      visibleSections.value = [...visibleSections.value, i]
+    }, delay)
+    delay += 600
+  }
+}
+
+const isSectionVisible = (index: number): boolean => {
+  return visibleSections.value.includes(index)
+}
+
+// -- Animated score counter --
+const displayScore = ref(0)
+
+const animateScore = (target: number): void => {
+  const duration = 1200
+  const startTime = Date.now()
+  const tick = (): void => {
+    const elapsed = Date.now() - startTime
+    const progress = Math.min(elapsed / duration, 1)
+    const eased = 1 - Math.pow(1 - progress, 3)
+    displayScore.value = Math.round(eased * target)
+    if (progress < 1) {
+      requestAnimationFrame(tick)
+    }
+  }
+  requestAnimationFrame(tick)
+}
+
 // -- mount 時に sessionStorage から結果を取得 --
 onMounted(() => {
   const stored = getResult()
@@ -41,6 +77,12 @@ onMounted(() => {
   result.value = stored
   ready.value = true
   pageEnteredAt.value = Date.now()
+
+  // Start reveal animation
+  revealSections()
+  setTimeout(() => {
+    animateScore(stored.score)
+  }, 500)
 
   // v2: track shindan completion
   trackShindanComplete(
@@ -137,12 +179,15 @@ const handleContactDirect = (): void => {
       </div>
 
       <!-- ===== Section 1: 手作業依存度スコア ===== -->
-      <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6">
+      <section
+        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6 transition-all duration-700"
+        :class="isSectionVisible(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+      >
         <h2 class="text-sm font-bold text-gray-500 mb-4">社長依存度スコア</h2>
 
         <div class="text-center mb-4">
           <span class="text-5xl md:text-6xl font-bold text-aiplus-navy">
-            {{ result.score }}
+            {{ displayScore }}
           </span>
           <span class="text-lg text-gray-500 ml-1">/ 100</span>
         </div>
@@ -211,7 +256,10 @@ const handleContactDirect = (): void => {
       </section>
 
       <!-- ===== Section 2: AI化で取り戻せる時間 ===== -->
-      <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6">
+      <section
+        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6 transition-all duration-700"
+        :class="isSectionVisible(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+      >
         <h2 class="text-sm font-bold text-gray-500 mb-4">AI化で取り戻せる時間</h2>
 
         <div class="grid grid-cols-2 gap-4 mb-4">
@@ -236,7 +284,10 @@ const handleContactDirect = (): void => {
       </section>
 
       <!-- ===== Section 3: おすすめAI活用 TOP1 ===== -->
-      <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6">
+      <section
+        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6 transition-all duration-700"
+        :class="isSectionVisible(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+      >
         <h2 class="text-sm font-bold text-gray-500 mb-4">おすすめAI活用</h2>
 
         <div class="bg-aiplus-light rounded-xl p-5 border border-aiplus-blue/20">
@@ -251,7 +302,10 @@ const handleContactDirect = (): void => {
       </section>
 
       <!-- ===== Section 4: 業界AI導入率 ===== -->
-      <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6">
+      <section
+        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6 transition-all duration-700"
+        :class="isSectionVisible(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+      >
         <h2 class="text-sm font-bold text-gray-500 mb-4">業界AI導入率</h2>
 
         <div class="flex items-center gap-4 mb-4">
@@ -278,7 +332,10 @@ const handleContactDirect = (): void => {
       </section>
 
       <!-- ===== Section 5: 年間削減額 ===== -->
-      <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6">
+      <section
+        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6 transition-all duration-700"
+        :class="isSectionVisible(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+      >
         <h2 class="text-sm font-bold text-gray-500 mb-4">参考：年間の人件費削減ポテンシャル</h2>
 
         <div class="text-center mb-4">
@@ -295,7 +352,10 @@ const handleContactDirect = (): void => {
       </section>
 
       <!-- ===== Section 6: 感情クロージング + CTA ===== -->
-      <section class="bg-gradient-to-br from-aiplus-navy to-aiplus-blue rounded-2xl shadow-lg p-6 md:p-8 text-white mb-8">
+      <section
+        class="bg-gradient-to-br from-aiplus-navy to-aiplus-blue rounded-2xl shadow-lg p-6 md:p-8 text-white mb-8 transition-all duration-700"
+        :class="isSectionVisible(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+      >
         <h2 class="text-xl md:text-2xl font-bold leading-snug mb-4">
           毎月{{ result.weeklyDays }}日分の時間が<br>
           戻ったら、何をしますか？
