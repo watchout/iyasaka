@@ -26,6 +26,15 @@ const route = useRoute()
 const variantParam = String(route.params.variant ?? '')
 
 const { variant, trackConversion } = useABTest('aiplus_hero', variantParam)
+
+// v2: analytics tracking
+const { initTracking } = useTracking()
+const { trackLPView } = useAnalytics()
+
+onMounted(() => {
+  initTracking()
+  trackLPView()
+})
 </script>
 
 <template>

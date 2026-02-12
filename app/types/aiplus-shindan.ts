@@ -47,6 +47,7 @@ export interface ShindanLeadData {
   company: string
   name: string
   email: string
+  companyUrl: string // v2: deep research source
   phone: string
   website: string // honeypot
 }

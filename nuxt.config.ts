@@ -56,7 +56,10 @@ export default defineNuxtConfig({
       to: process.env.LEAD_MAIL_TO || ''
     },
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://example.com'
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://example.com',
+      ga4Id: process.env.NUXT_PUBLIC_GA4_ID || '',
+      gadsId: process.env.NUXT_PUBLIC_GADS_ID || '',
+      calendlyUrl: process.env.NUXT_PUBLIC_CALENDLY_URL || '',
     }
   },
 
@@ -101,7 +104,29 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-      ]
+      ],
+      // GA4: conditionally injected only when ID is configured
+      script: [
+        ...(process.env.NUXT_PUBLIC_GA4_ID
+          ? [
+              {
+                src: `https://www.googletagmanager.com/gtag/js?id=${process.env.NUXT_PUBLIC_GA4_ID}`,
+                async: true,
+              },
+              {
+                children: [
+                  'window.dataLayer = window.dataLayer || [];',
+                  'function gtag(){dataLayer.push(arguments);}',
+                  "gtag('js', new Date());",
+                  `gtag('config', '${process.env.NUXT_PUBLIC_GA4_ID}');`,
+                  ...(process.env.NUXT_PUBLIC_GADS_ID
+                    ? [`gtag('config', '${process.env.NUXT_PUBLIC_GADS_ID}');`]
+                    : []),
+                ].join('\n'),
+              },
+            ]
+          : []),
+      ],
     }
   },
 

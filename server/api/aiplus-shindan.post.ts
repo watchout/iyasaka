@@ -23,8 +23,13 @@ const ShindanSubmissionSchema = z.object({
   company: z.string().min(1),
   name: z.string().min(1),
   email: z.string().email(),
+  companyUrl: z.string().url().optional().or(z.literal('')),
   phone: z.string().optional(),
   score: z.number().min(0).max(100),
+  recoverableHours: z.number().optional(),
+  weeklyDays: z.number().optional(),
+  annualSaving: z.number().optional(),
+  topRecommendation: z.string().optional(),
   answers: z.object({
     industry: z.string().min(1),
     employeeSize: z.string().min(1),
@@ -121,12 +126,23 @@ function buildEmailBody(payload: ShindanSubmission): string {
   const lines = [
     '=== AIプラス AI活用診断 リード通知 ===',
     '',
-    `会社名: ${payload.company}`,
-    `お名前: ${payload.name}`,
-    `メール: ${payload.email}`,
-    `電話:   ${payload.phone || '(未入力)'}`,
+    `会社名:     ${payload.company}`,
+    `お名前:     ${payload.name}`,
+    `メール:     ${payload.email}`,
+    `会社HP URL: ${payload.companyUrl || '(未入力)'}`,
+    `電話:       ${payload.phone || '(未入力)'}`,
     '',
-    `スコア: ${payload.score} / 100`,
+    '--- 診断結果サマリー ---',
+    `社長依存度スコア: ${payload.score} / 100`,
+    ...(payload.recoverableHours != null
+      ? [`取り戻せる時間:   月${payload.recoverableHours}時間（週${payload.weeklyDays}日分）`]
+      : []),
+    ...(payload.topRecommendation
+      ? [`おすすめAI活用:   ${payload.topRecommendation}`]
+      : []),
+    ...(payload.annualSaving != null
+      ? [`年間削減ポテンシャル: ${Math.round(payload.annualSaving / 10000)}万円`]
+      : []),
     '',
     '--- 回答内容 ---',
     `Q1 業種:       ${payload.answers.industry}`,

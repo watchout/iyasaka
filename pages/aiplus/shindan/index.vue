@@ -42,6 +42,61 @@ const showLoading = ref(false)
 const submitting = ref(false)
 const errorMessage = ref('')
 
+// -- v2: Analytics --
+const {
+  trackShindanStart,
+  trackQuestion,
+  trackQuestionCount,
+  trackQ7Submit,
+  trackDropout,
+} = useAnalytics()
+
+onMounted(() => {
+  trackShindanStart()
+})
+
+// Track question progression
+watch(currentQuestion, (newQ, oldQ) => {
+  if (newQ > oldQ && oldQ >= 1 && oldQ <= 6) {
+    // Track the answer for the question just completed
+    switch (oldQ) {
+      case 1:
+        trackQuestion(1, answers.industry)
+        break
+      case 2:
+        trackQuestion(2, answers.employeeSize)
+        break
+      case 3:
+        trackQuestionCount(3, answers.manualTasks.length)
+        break
+      case 4:
+        trackQuestion(4, answers.monthlyHours)
+        break
+      case 5:
+        trackQuestionCount(5, answers.painPoints.length)
+        break
+      case 6:
+        trackQuestion(6, answers.improvementGoal)
+        break
+    }
+  }
+})
+
+// Track dropout on page unload
+if (import.meta.client) {
+  const handleBeforeUnload = (): void => {
+    if (currentQuestion.value > 1 && !showLoading.value) {
+      trackDropout(currentQuestion.value)
+    }
+  }
+  onMounted(() => {
+    window.addEventListener('beforeunload', handleBeforeUnload)
+  })
+  onUnmounted(() => {
+    window.removeEventListener('beforeunload', handleBeforeUnload)
+  })
+}
+
 // -- 単一選択: 300ms後に自動進行 --
 const selectSingle = (field: 'industry' | 'employeeSize' | 'improvementGoal', value: string): void => {
   answers[field] = value
@@ -73,6 +128,9 @@ const submitShindan = async (): Promise<void> => {
     const result = buildResult()
     saveResult(result)
 
+    // v2: track Q7 submission
+    trackQ7Submit(!!leadData.phone, !!leadData.companyUrl)
+
     // honeypot: bot なら API呼ばずサイレントに遷移
     if (!leadData.website) {
       await $fetch('/api/aiplus-shindan', {
@@ -81,8 +139,13 @@ const submitShindan = async (): Promise<void> => {
           company: leadData.company,
           name: leadData.name,
           email: leadData.email,
+          companyUrl: leadData.companyUrl,
           phone: leadData.phone || undefined,
           score: result.score,
+          recoverableHours: result.recoverableHours,
+          weeklyDays: result.weeklyDays,
+          annualSaving: result.annualSaving,
+          topRecommendation: result.topRecommendation,
           answers: result.answers,
           source: 'aiplus_shindan',
         },
@@ -120,6 +183,12 @@ if (import.meta.client) {
 
       <!-- ヘッダー -->
       <div class="text-center mb-6">
+        <img
+          src="/images/aiplus/logo-icon.png"
+          srcset="/images/aiplus/logo-icon.png 1x, /images/aiplus/logo-icon-2x.png 2x"
+          alt="AIプラス"
+          class="h-14 md:h-16 w-auto mx-auto mb-3"
+        >
         <h1 class="text-xl md:text-2xl font-gothic font-bold text-aiplus-navy">
           AI活用診断
         </h1>
@@ -316,6 +385,23 @@ if (import.meta.client) {
                 class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-colors"
                 placeholder="info@example.co.jp"
               >
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                会社HP URL <span class="text-red-500">*</span>
+              </label>
+              <input
+                v-model="leadData.companyUrl"
+                type="url"
+                required
+                autocomplete="url"
+                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-colors"
+                placeholder="https://example.co.jp"
+              >
+              <p class="text-xs text-gray-400 mt-1">
+                御社のホームページURLを入力してください
+              </p>
             </div>
 
             <div>

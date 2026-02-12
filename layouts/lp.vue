@@ -6,9 +6,14 @@
         <div class="flex items-center justify-between h-14 md:h-16">
           <NuxtLink
             to="/aiplus"
-            class="text-lg md:text-xl font-gothic font-bold text-aiplus-navy hover:opacity-80 transition-opacity"
+            class="hover:opacity-80 transition-opacity"
           >
-            AIプラス
+            <img
+              src="/images/aiplus/logo-header.png"
+              srcset="/images/aiplus/logo-header.png 1x, /images/aiplus/logo-header-2x.png 2x"
+              alt="AIプラス"
+              class="h-9 md:h-10 w-auto"
+            >
           </NuxtLink>
           <div class="flex items-center gap-4">
             <NuxtLink
@@ -36,9 +41,14 @@
     <!-- LP専用フッター -->
     <footer class="bg-aiplus-navy text-white/70 py-8">
       <div class="max-w-5xl mx-auto px-6 text-center">
-        <p class="text-white font-gothic font-bold mb-1">
-          AIプラス | 有限会社IYASAKA
-        </p>
+        <div class="flex items-center justify-center gap-2 mb-1">
+          <img
+            src="/images/aiplus/logo-icon.png"
+            alt=""
+            class="h-6 w-auto brightness-0 invert"
+          >
+          <span class="text-white font-gothic font-bold">AIプラス | 有限会社IYASAKA</span>
+        </div>
         <p class="text-sm mb-3">
           中小企業のためのAI導入相談役
         </p>

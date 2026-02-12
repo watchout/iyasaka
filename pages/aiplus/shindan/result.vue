@@ -20,9 +20,16 @@ useSeoMeta({
 
 const router = useRouter()
 const { getResult } = useAiplusShindan()
+const {
+  trackShindanComplete,
+  trackReportRequestStep1,
+  trackContactDirect,
+  trackExitResultPage,
+} = useAnalytics()
 
 const result = ref<ShindanResult | null>(null)
 const ready = ref(false)
+const pageEnteredAt = ref(0)
 
 // -- mount 時に sessionStorage から結果を取得 --
 onMounted(() => {
@@ -33,7 +40,31 @@ onMounted(() => {
   }
   result.value = stored
   ready.value = true
+  pageEnteredAt.value = Date.now()
+
+  // v2: track shindan completion
+  trackShindanComplete(
+    stored.score,
+    stored.answers.industry,
+    stored.answers.employeeSize,
+  )
 })
+
+// v2: track page exit without CTA click
+if (import.meta.client) {
+  const handleBeforeUnload = (): void => {
+    if (result.value && pageEnteredAt.value > 0) {
+      const timeOnPage = Math.round((Date.now() - pageEnteredAt.value) / 1000)
+      trackExitResultPage(result.value.score, timeOnPage)
+    }
+  }
+  onMounted(() => {
+    window.addEventListener('beforeunload', handleBeforeUnload)
+  })
+  onUnmounted(() => {
+    window.removeEventListener('beforeunload', handleBeforeUnload)
+  })
+}
 
 // -- スコアバーの色クラス --
 const scoreColorClass = computed((): string => {
@@ -62,6 +93,29 @@ const formattedAnnualSaving = computed((): string => {
   const man = result.value.annualSaving / 10000
   return man.toLocaleString('ja-JP')
 })
+
+// -- レポート承認モーダル --
+const showReportModal = ref(false)
+
+const handleReportRequest = (): void => {
+  showReportModal.value = true
+}
+
+const handleReportConfirm = (): void => {
+  if (result.value) {
+    trackReportRequestStep1(result.value.score)
+  }
+}
+
+const handleReportCancel = (): void => {
+  showReportModal.value = false
+}
+
+const handleContactDirect = (): void => {
+  if (result.value) {
+    trackContactDirect(result.value.score)
+  }
+}
 </script>
 
 <template>
@@ -70,6 +124,12 @@ const formattedAnnualSaving = computed((): string => {
 
       <!-- ヘッダー -->
       <div class="text-center mb-8">
+        <img
+          src="/images/aiplus/logo-icon.png"
+          srcset="/images/aiplus/logo-icon.png 1x, /images/aiplus/logo-icon-2x.png 2x"
+          alt="AIプラス"
+          class="h-14 md:h-16 w-auto mx-auto mb-3"
+        >
         <p class="text-sm font-bold text-aiplus-blue mb-2">AI活用診断</p>
         <h1 class="text-xl md:text-2xl font-gothic font-bold text-aiplus-navy">
           {{ result.leadData.company }}様の診断結果
@@ -78,7 +138,7 @@ const formattedAnnualSaving = computed((): string => {
 
       <!-- ===== Section 1: 手作業依存度スコア ===== -->
       <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6">
-        <h2 class="text-sm font-bold text-gray-500 mb-4">手作業依存度スコア</h2>
+        <h2 class="text-sm font-bold text-gray-500 mb-4">社長依存度スコア</h2>
 
         <div class="text-center mb-4">
           <span class="text-5xl md:text-6xl font-bold text-aiplus-navy">
@@ -110,21 +170,41 @@ const formattedAnnualSaving = computed((): string => {
             :class="scoreBadgeClass"
             class="inline-block px-4 py-1.5 rounded-full text-sm font-bold"
           >
-            手作業依存度：{{ result.scoreLevelLabel }}
+            社長依存度：{{ result.scoreLevelLabel }}
           </span>
+        </div>
+
+        <!-- 詳細指標 -->
+        <div class="grid grid-cols-2 gap-3 mt-5 mb-4">
+          <div class="bg-gray-50 rounded-xl p-3 text-center">
+            <p class="text-2xl font-bold text-aiplus-navy">
+              {{ result.answers.manualTasks.length + result.answers.painPoints.length }}
+            </p>
+            <p class="text-xs text-gray-500 mt-1 leading-snug">
+              社長がいないと<br>止まる業務
+            </p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3 text-center">
+            <p class="text-2xl font-bold text-aiplus-navy">
+              {{ result.answers.monthlyHours }}
+            </p>
+            <p class="text-xs text-gray-500 mt-1 leading-snug">
+              社長が作業に費やす<br>月間時間
+            </p>
+          </div>
         </div>
 
         <p class="text-sm text-gray-600 mt-4 text-center leading-relaxed">
           <template v-if="result.scoreLevel === 'critical'">
-            御社は手作業への依存度が非常に高い状態です。<br>
+            御社は社長への依存度が非常に高い状態です。<br>
             AI導入による改善余地が大きく、優先的な対応をおすすめします。
           </template>
           <template v-else-if="result.scoreLevel === 'high'">
-            御社は手作業への依存度が高い状態です。<br>
+            御社は社長への依存度が高い状態です。<br>
             AI導入により大幅な業務改善が期待できます。
           </template>
           <template v-else>
-            御社にもAI活用で改善できる業務があります。<br>
+            御社にも社長の負担をAIで軽減できる業務があります。<br>
             段階的なAI導入で、さらなる効率化が可能です。
           </template>
         </p>
@@ -221,22 +301,55 @@ const formattedAnnualSaving = computed((): string => {
           戻ったら、何をしますか？
         </h2>
 
-        <p class="text-white/80 text-sm leading-relaxed mb-6">
-          新規営業に回す。家族との時間を増やす。<br>
-          新しい事業の構想を練る。<br>
-          その「次の一手」を、AIプラスがお手伝いします。
+        <p class="text-white/80 text-sm leading-relaxed mb-5">
+          この結果をもとに、{{ result.leadData.company }}様専用の<br>
+          AI活用レポートを作成いたします。
         </p>
 
-        <NuxtLink
-          to="/contact?p_id=aiplus"
+        <ul class="space-y-2 mb-6">
+          <li class="flex items-start gap-2 text-sm text-white/90">
+            <svg class="w-4 h-4 text-aiplus-cta shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            <span>御社と同業他社のAI導入事例</span>
+          </li>
+          <li class="flex items-start gap-2 text-sm text-white/90">
+            <svg class="w-4 h-4 text-aiplus-cta shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            <span>御社に最適なAI活用プラン</span>
+          </li>
+          <li class="flex items-start gap-2 text-sm text-white/90">
+            <svg class="w-4 h-4 text-aiplus-cta shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            <span>想定される時間削減効果の詳細</span>
+          </li>
+        </ul>
+
+        <!-- Main CTA: Report request (small-step) -->
+        <button
+          type="button"
           class="block w-full px-6 py-4 bg-aiplus-cta text-white font-bold text-lg rounded-full shadow-aiplus-cta hover:bg-aiplus-cta-hover hover:shadow-aiplus-cta-hover transition-all text-center"
+          @click="handleReportRequest"
         >
-          30分の無料相談で、AI化の第一歩がわかる
-        </NuxtLink>
+          レポートを受け取る
+        </button>
 
         <p class="text-white/60 text-xs text-center mt-3">
           営業電話なし。ご契約の義務なし。
         </p>
+
+        <!-- Sub CTA: Direct contact (text link) -->
+        <div class="text-center mt-5">
+          <NuxtLink
+            to="/contact?p_id=aiplus"
+            class="text-sm text-white/60 hover:text-white/90 transition-colors underline underline-offset-4"
+            @click="handleContactDirect"
+          >
+            今すぐ専門家に相談したい方はこちら &rarr;
+          </NuxtLink>
+        </div>
       </section>
 
       <!-- もう一度診断する -->
@@ -248,6 +361,14 @@ const formattedAnnualSaving = computed((): string => {
           もう一度診断する
         </NuxtLink>
       </div>
+
+      <!-- Report confirmation modal -->
+      <AiplusShindanReportModal
+        :visible="showReportModal"
+        :email="result.leadData.email"
+        @confirm="handleReportConfirm"
+        @cancel="handleReportCancel"
+      />
 
     </div>
   </div>

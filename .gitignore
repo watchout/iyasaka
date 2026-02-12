@@ -39,3 +39,7 @@ ecosystem.config.cjs
 # Binary / generated docs (keep in Google Drive, not git)
 *.xlsx
 *.xls
+
+# Original logo source files (optimized versions in public/images/)
+aiplus_logo.png
+aiplus_logo2.png
