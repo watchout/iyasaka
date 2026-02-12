@@ -42,6 +42,24 @@ const showLoading = ref(false)
 const submitting = ref(false)
 const errorMessage = ref('')
 
+// -- Q7 field completion tracking --
+const q7Fields = computed(() => {
+  const fields = [
+    { label: '会社名', done: leadData.company.trim() !== '' },
+    { label: 'お名前', done: leadData.name.trim() !== '' },
+    { label: 'メール', done: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(leadData.email) },
+    { label: 'HP URL', done: /^https?:\/\/.+\..+/.test(leadData.companyUrl.trim()) },
+    { label: '電話番号', done: leadData.phone.trim() !== '', optional: true },
+  ]
+  return fields
+})
+
+const q7CompletedCount = computed(() => {
+  return q7Fields.value.filter(f => f.done).length
+})
+
+const q7RequiredTotal = 4 // required fields only
+
 // -- v2: Analytics --
 const {
   trackShindanStart,
@@ -53,6 +71,13 @@ const {
 
 onMounted(() => {
   trackShindanStart()
+})
+
+// Scroll to top on question change
+watch(currentQuestion, () => {
+  if (import.meta.client) {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 })
 
 // Track question progression
@@ -344,77 +369,164 @@ if (import.meta.client) {
 
         <!-- ===== Q7: リードフォーム ===== -->
         <div v-else-if="currentQuestion === 7">
+          <!-- Progress counter -->
+          <div class="flex items-center justify-between mb-4 px-1">
+            <div class="flex items-center gap-2">
+              <div class="flex gap-1">
+                <span
+                  v-for="(field, i) in q7Fields"
+                  :key="i"
+                  class="w-2 h-2 rounded-full transition-all duration-300"
+                  :class="field.done ? 'bg-green-500 scale-110' : 'bg-gray-300'"
+                />
+              </div>
+              <span class="text-sm text-gray-500">
+                <span class="font-bold text-aiplus-blue">{{ q7CompletedCount }}</span>
+                / {{ q7Fields.length }}
+              </span>
+            </div>
+            <span
+              v-if="q7CompletedCount >= q7RequiredTotal"
+              class="text-xs text-green-600 font-medium"
+            >
+              入力完了
+            </span>
+            <span v-else class="text-xs text-gray-400">
+              あと{{ q7RequiredTotal - Math.min(q7CompletedCount, q7RequiredTotal) }}項目
+            </span>
+          </div>
+
           <form class="space-y-4" @submit.prevent="submitShindan">
-            <div>
+            <!-- 会社名 -->
+            <div class="relative">
               <label class="block text-sm font-medium text-gray-700 mb-1">
                 会社名 <span class="text-red-500">*</span>
               </label>
-              <input
-                v-model="leadData.company"
-                type="text"
-                required
-                autocomplete="organization"
-                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-colors"
-                placeholder="株式会社〇〇"
-              >
+              <div class="relative">
+                <input
+                  v-model="leadData.company"
+                  type="text"
+                  required
+                  autocomplete="organization"
+                  class="w-full px-4 py-3 pr-10 bg-white text-gray-900 border rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-all"
+                  :class="q7Fields[0].done ? 'border-green-400' : 'border-gray-300'"
+                  placeholder="株式会社〇〇"
+                >
+                <span
+                  v-if="q7Fields[0].done"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 transition-all duration-300"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              </div>
             </div>
 
-            <div>
+            <!-- お名前 -->
+            <div class="relative">
               <label class="block text-sm font-medium text-gray-700 mb-1">
                 お名前 <span class="text-red-500">*</span>
               </label>
-              <input
-                v-model="leadData.name"
-                type="text"
-                required
-                autocomplete="name"
-                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-colors"
-                placeholder="山田 太郎"
-              >
+              <div class="relative">
+                <input
+                  v-model="leadData.name"
+                  type="text"
+                  required
+                  autocomplete="name"
+                  class="w-full px-4 py-3 pr-10 bg-white text-gray-900 border rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-all"
+                  :class="q7Fields[1].done ? 'border-green-400' : 'border-gray-300'"
+                  placeholder="山田 太郎"
+                >
+                <span
+                  v-if="q7Fields[1].done"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 transition-all duration-300"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              </div>
             </div>
 
-            <div>
+            <!-- メールアドレス -->
+            <div class="relative">
               <label class="block text-sm font-medium text-gray-700 mb-1">
                 メールアドレス <span class="text-red-500">*</span>
               </label>
-              <input
-                v-model="leadData.email"
-                type="email"
-                required
-                autocomplete="email"
-                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-colors"
-                placeholder="info@example.co.jp"
-              >
+              <div class="relative">
+                <input
+                  v-model="leadData.email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  class="w-full px-4 py-3 pr-10 bg-white text-gray-900 border rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-all"
+                  :class="q7Fields[2].done ? 'border-green-400' : 'border-gray-300'"
+                  placeholder="info@example.co.jp"
+                >
+                <span
+                  v-if="q7Fields[2].done"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 transition-all duration-300"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              </div>
             </div>
 
-            <div>
+            <!-- 会社HP URL -->
+            <div class="relative">
               <label class="block text-sm font-medium text-gray-700 mb-1">
                 会社HP URL <span class="text-red-500">*</span>
               </label>
-              <input
-                v-model="leadData.companyUrl"
-                type="url"
-                required
-                autocomplete="url"
-                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-colors"
-                placeholder="https://example.co.jp"
-              >
+              <div class="relative">
+                <input
+                  v-model="leadData.companyUrl"
+                  type="url"
+                  required
+                  autocomplete="url"
+                  class="w-full px-4 py-3 pr-10 bg-white text-gray-900 border rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-all"
+                  :class="q7Fields[3].done ? 'border-green-400' : 'border-gray-300'"
+                  placeholder="https://example.co.jp"
+                >
+                <span
+                  v-if="q7Fields[3].done"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 transition-all duration-300"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              </div>
               <p class="text-xs text-gray-400 mt-1">
                 御社のホームページURLを入力してください
               </p>
             </div>
 
-            <div>
+            <!-- 電話番号 -->
+            <div class="relative">
               <label class="block text-sm font-medium text-gray-700 mb-1">
                 電話番号（任意）
               </label>
-              <input
-                v-model="leadData.phone"
-                type="tel"
-                autocomplete="tel"
-                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-colors"
-                placeholder="048-XXX-XXXX"
-              >
+              <div class="relative">
+                <input
+                  v-model="leadData.phone"
+                  type="tel"
+                  autocomplete="tel"
+                  class="w-full px-4 py-3 pr-10 bg-white text-gray-900 border rounded-xl focus:ring-2 focus:ring-aiplus-blue focus:border-aiplus-blue transition-all"
+                  :class="q7Fields[4].done ? 'border-green-400' : 'border-gray-300'"
+                  placeholder="048-XXX-XXXX"
+                >
+                <span
+                  v-if="q7Fields[4].done"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-green-500 transition-all duration-300"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+              </div>
             </div>
 
             <!-- Honeypot -->
