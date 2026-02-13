@@ -96,16 +96,6 @@ const flowIcons = [
       </div>
 
       <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
-        <!-- ロゴ -->
-        <div class="mb-8">
-          <img
-            src="/images/aiplus/logo-full.png"
-            srcset="/images/aiplus/logo-full.png 1x, /images/aiplus/logo-full-2x.png 2x"
-            alt="AIプラス"
-            class="h-20 md:h-28 lg:h-32 w-auto mx-auto brightness-0 invert"
-          >
-        </div>
-
         <!-- 5社限定バッジ -->
         <div class="inline-block px-4 py-1.5 bg-aiplus-cta/20 text-aiplus-cta rounded-full text-sm font-bold mb-8 border border-aiplus-cta/30">
           {{ heroCommon.narrowingBadge }}
