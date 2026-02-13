@@ -133,7 +133,7 @@ function buildEmailBody(payload: ShindanSubmission): string {
     `電話:       ${payload.phone || '(未入力)'}`,
     '',
     '--- 診断結果サマリー ---',
-    `社長依存度スコア: ${payload.score} / 100`,
+    `AI活用ポテンシャルスコア: ${payload.score} / 100`,
     ...(payload.recoverableHours != null
       ? [`取り戻せる時間:   月${payload.recoverableHours}時間（週${payload.weeklyDays}日分）`]
       : []),

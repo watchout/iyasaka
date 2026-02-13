@@ -74,8 +74,8 @@ export const monthlyHours: HourOption[] = [
 // ---------------------------------------------------------------------------
 
 export const painPoints: ShindanOption[] = [
-  { id: 'owner_bottleneck', label: '社長が休むと業務が止まる' },
-  { id: 'person_dependent', label: '特定の社員しかできない業務がある' },
+  { id: 'owner_bottleneck', label: '特定の人が休むと業務が止まる' },
+  { id: 'person_dependent', label: '特定の人しかできない業務がある' },
   { id: 'repetitive_inquiry', label: '同じ質問に何度も答えている' },
   { id: 'missed_opportunity', label: '営業時間外の問い合わせを逃している' },
   { id: 'no_training_time', label: '採用しても教育する時間がない' },
@@ -90,9 +90,9 @@ export const painPoints: ShindanOption[] = [
 export const improvementGoals: GoalOption[] = [
   {
     id: 'owner_time',
-    label: '社長の時間を空けたい',
-    solution: '社長業務の自動化',
-    solutionDescription: '問い合わせ対応・見積作成・スケジュール管理など、社長が自ら行っている業務をAIで自動化。社長が本業に集中できる環境を作ります。',
+    label: '経営・判断に集中する時間を作りたい',
+    solution: '意思決定層の業務自動化',
+    solutionDescription: '問い合わせ対応・見積作成・スケジュール管理など、意思決定層が抱える業務をAIで自動化。本業に集中できる環境を作ります。',
   },
   {
     id: 'labor',
@@ -143,7 +143,7 @@ export const questionHeaders = [
   },
   {
     number: 3,
-    title: '社長や社員が手作業でやっているものは？',
+    title: '手作業でやっている業務はどれですか？',
     sub: '当てはまるものをすべて選んでください',
     purpose: 'AIで自動化できる業務と削減時間を算出します',
   },
@@ -237,9 +237,9 @@ export function calculateScore(manualCount: number, painCount: number): number {
 }
 
 export function getScoreLevel(score: number): { level: ScoreLevel; label: string } {
-  if (score >= 80) return { level: 'critical', label: '非常に高い' }
-  if (score >= 70) return { level: 'high', label: '高い' }
-  return { level: 'moderate', label: 'やや高い' }
+  if (score >= 80) return { level: 'critical', label: '非常に大きい' }
+  if (score >= 70) return { level: 'high', label: '大きい' }
+  return { level: 'moderate', label: '期待できる' }
 }
 
 export function calculateRecoverableHours(monthlyHours: number): number {

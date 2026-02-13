@@ -1,9 +1,10 @@
 <script setup lang="ts">
 /**
- * AIPlus AI活用診断 -- 結果ページ
+ * AIPlus AI活用診断 -- 結果ページ (v3)
  * /aiplus/shindan/result
  *
- * sessionStorage から診断結果を取得して 6 セクションで表示する。
+ * sessionStorage から診断結果を取得して 3 セクション + CTA で表示する。
+ * v3: ポジティブフレーム（AI活用ポテンシャル）、青→緑配色、3セクション簡素化
  * 結果データが無い場合は /aiplus/shindan にリダイレクト。
  */
 
@@ -31,9 +32,9 @@ const result = ref<ShindanResult | null>(null)
 const ready = ref(false)
 const pageEnteredAt = ref(0)
 
-// -- Section reveal animation --
+// -- Section reveal animation (v3: 4 sections) --
 const visibleSections = ref<number[]>([])
-const totalSections = 6
+const totalSections = 4
 
 const revealSections = (): void => {
   let delay = 400
@@ -108,13 +109,13 @@ if (import.meta.client) {
   })
 }
 
-// -- スコアバーの色クラス --
+// -- v3: スコアバーの色クラス（ポジティブ: 青→緑） --
 const scoreColorClass = computed((): string => {
   if (!result.value) return 'bg-gray-300'
   switch (result.value.scoreLevel) {
-    case 'critical': return 'bg-red-500'
-    case 'high': return 'bg-orange-500'
-    case 'moderate': return 'bg-yellow-500'
+    case 'critical': return 'bg-green-500'
+    case 'high': return 'bg-emerald-500'
+    case 'moderate': return 'bg-blue-500'
     default: return 'bg-gray-300'
   }
 })
@@ -122,18 +123,11 @@ const scoreColorClass = computed((): string => {
 const scoreBadgeClass = computed((): string => {
   if (!result.value) return 'bg-gray-100 text-gray-700'
   switch (result.value.scoreLevel) {
-    case 'critical': return 'bg-red-100 text-red-700'
-    case 'high': return 'bg-orange-100 text-orange-700'
-    case 'moderate': return 'bg-yellow-100 text-yellow-700'
+    case 'critical': return 'bg-green-100 text-green-700'
+    case 'high': return 'bg-emerald-100 text-emerald-700'
+    case 'moderate': return 'bg-blue-100 text-blue-700'
     default: return 'bg-gray-100 text-gray-700'
   }
-})
-
-// -- 年間削減額フォーマット --
-const formattedAnnualSaving = computed((): string => {
-  if (!result.value) return '0'
-  const man = result.value.annualSaving / 10000
-  return man.toLocaleString('ja-JP')
 })
 
 // -- レポート承認モーダル --
@@ -178,12 +172,12 @@ const handleContactDirect = (): void => {
         </h1>
       </div>
 
-      <!-- ===== Section 1: 手作業依存度スコア ===== -->
+      <!-- ===== Section 1: AI活用ポテンシャルスコア ===== -->
       <section
         class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6 transition-all duration-700"
         :class="isSectionVisible(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
       >
-        <h2 class="text-sm font-bold text-gray-500 mb-4">社長依存度スコア</h2>
+        <h2 class="text-sm font-bold text-gray-500 mb-4">AI活用ポテンシャルスコア</h2>
 
         <div class="text-center mb-4">
           <span class="text-5xl md:text-6xl font-bold text-aiplus-navy">
@@ -215,42 +209,22 @@ const handleContactDirect = (): void => {
             :class="scoreBadgeClass"
             class="inline-block px-4 py-1.5 rounded-full text-sm font-bold"
           >
-            社長依存度：{{ result.scoreLevelLabel }}
+            AI活用ポテンシャル：{{ result.scoreLevelLabel }}
           </span>
-        </div>
-
-        <!-- 詳細指標 -->
-        <div class="grid grid-cols-2 gap-3 mt-5 mb-4">
-          <div class="bg-gray-50 rounded-xl p-3 text-center">
-            <p class="text-2xl font-bold text-aiplus-navy">
-              {{ result.answers.manualTasks.length + result.answers.painPoints.length }}
-            </p>
-            <p class="text-xs text-gray-500 mt-1 leading-snug">
-              社長がいないと<br>止まる業務
-            </p>
-          </div>
-          <div class="bg-gray-50 rounded-xl p-3 text-center">
-            <p class="text-2xl font-bold text-aiplus-navy">
-              {{ result.answers.monthlyHours }}
-            </p>
-            <p class="text-xs text-gray-500 mt-1 leading-snug">
-              社長が作業に費やす<br>月間時間
-            </p>
-          </div>
         </div>
 
         <p class="text-sm text-gray-600 mt-4 text-center leading-relaxed">
           <template v-if="result.scoreLevel === 'critical'">
-            御社は社長への依存度が非常に高い状態です。<br>
-            AI導入による改善余地が大きく、優先的な対応をおすすめします。
+            御社にはAI活用で大きく飛躍できる可能性があります。<br>
+            今始めれば、同業他社に大きな差をつけられます。
           </template>
           <template v-else-if="result.scoreLevel === 'high'">
-            御社は社長への依存度が高い状態です。<br>
-            AI導入により大幅な業務改善が期待できます。
+            御社にはAI活用で業務を改善できる余地が十分にあります。<br>
+            段階的な導入で、着実に成果を実感できます。
           </template>
           <template v-else>
-            御社にも社長の負担をAIで軽減できる業務があります。<br>
-            段階的なAI導入で、さらなる効率化が可能です。
+            御社にもAIで効率化できる業務があります。<br>
+            小さな一歩から始めて、業務の質を高められます。
           </template>
         </p>
       </section>
@@ -301,60 +275,10 @@ const handleContactDirect = (): void => {
         </div>
       </section>
 
-      <!-- ===== Section 4: 業界AI導入率 ===== -->
-      <section
-        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6 transition-all duration-700"
-        :class="isSectionVisible(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
-      >
-        <h2 class="text-sm font-bold text-gray-500 mb-4">業界AI導入率</h2>
-
-        <div class="flex items-center gap-4 mb-4">
-          <div class="flex-1">
-            <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
-              <div
-                class="bg-aiplus-blue h-6 rounded-full transition-all duration-1000 ease-out flex items-center justify-end pr-2"
-                :style="{ width: `${Math.max(result.industryAdoptionRate, 10)}%` }"
-              >
-                <span class="text-xs font-bold text-white">
-                  {{ result.industryAdoptionRate }}%
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p class="text-sm text-gray-600 leading-relaxed">
-          {{ result.industryAdoptionNote }}。<br>
-          <strong class="text-aiplus-navy">
-            つまり、今AI導入を始めれば同業他社に大きく差をつけられます。
-          </strong>
-        </p>
-      </section>
-
-      <!-- ===== Section 5: 年間削減額 ===== -->
-      <section
-        class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 mb-6 transition-all duration-700"
-        :class="isSectionVisible(5) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
-      >
-        <h2 class="text-sm font-bold text-gray-500 mb-4">参考：年間の人件費削減ポテンシャル</h2>
-
-        <div class="text-center mb-4">
-          <p class="text-sm text-gray-500 mb-1">AI化で見込める年間削減額</p>
-          <p class="text-4xl md:text-5xl font-bold text-aiplus-navy">
-            {{ formattedAnnualSaving }}<span class="text-lg ml-1">万円</span>
-          </p>
-        </div>
-
-        <p class="text-xs text-gray-400 text-center leading-relaxed">
-          ※ 時間単価2,000円で試算した参考値です。<br>
-          業務内容・人員配置により実際の効果は異なります。
-        </p>
-      </section>
-
-      <!-- ===== Section 6: 感情クロージング + CTA ===== -->
+      <!-- ===== Section 4: CTA ===== -->
       <section
         class="bg-gradient-to-br from-aiplus-navy to-aiplus-blue rounded-2xl shadow-lg p-6 md:p-8 text-white mb-8 transition-all duration-700"
-        :class="isSectionVisible(6) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
+        :class="isSectionVisible(4) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
       >
         <h2 class="text-xl md:text-2xl font-bold leading-snug mb-4">
           毎月{{ result.weeklyDays }}日分の時間が<br>
@@ -363,7 +287,7 @@ const handleContactDirect = (): void => {
 
         <p class="text-white/80 text-sm leading-relaxed mb-5">
           この結果をもとに、{{ result.leadData.company }}様専用の<br>
-          AI活用レポートを作成いたします。
+          AI活用レポートをお届けします。
         </p>
 
         <ul class="space-y-2 mb-6">
@@ -371,29 +295,23 @@ const handleContactDirect = (): void => {
             <svg class="w-4 h-4 text-aiplus-cta shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
             </svg>
-            <span>御社と同業他社のAI導入事例</span>
+            <span>御社の業種に合ったAI活用事例集</span>
           </li>
           <li class="flex items-start gap-2 text-sm text-white/90">
             <svg class="w-4 h-4 text-aiplus-cta shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
             </svg>
-            <span>御社に最適なAI活用プラン</span>
-          </li>
-          <li class="flex items-start gap-2 text-sm text-white/90">
-            <svg class="w-4 h-4 text-aiplus-cta shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-            </svg>
-            <span>想定される時間削減効果の詳細</span>
+            <span>御社専用のAI活用レポート</span>
           </li>
         </ul>
 
-        <!-- Main CTA: Report request (small-step) -->
+        <!-- Main CTA: v3 casebook + report -->
         <button
           type="button"
           class="block w-full px-6 py-4 bg-aiplus-cta text-white font-bold text-lg rounded-full shadow-aiplus-cta hover:bg-aiplus-cta-hover hover:shadow-aiplus-cta-hover transition-all text-center"
           @click="handleReportRequest"
         >
-          レポートを受け取る
+          活用集とレポートを受け取る
         </button>
 
         <p class="text-white/60 text-xs text-center mt-3">
