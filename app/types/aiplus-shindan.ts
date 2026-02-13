@@ -58,6 +58,14 @@ export interface ShindanLeadData {
 
 export type ScoreLevel = 'moderate' | 'high' | 'critical'
 
+export type CasebookTheme = 'A' | 'B' | 'C'
+
+export interface CasebookThemeInfo {
+  theme: CasebookTheme
+  label: string
+  description: string
+}
+
 export interface ShindanResult {
   score: number
   scoreLevel: ScoreLevel
@@ -69,6 +77,7 @@ export interface ShindanResult {
   topRecommendationDescription: string
   industryAdoptionRate: number
   industryAdoptionNote: string
+  casebookTheme: CasebookThemeInfo
   answers: ShindanAnswers
   leadData: Omit<ShindanLeadData, 'website'>
   completedAt: string

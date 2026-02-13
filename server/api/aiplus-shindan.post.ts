@@ -30,6 +30,8 @@ const ShindanSubmissionSchema = z.object({
   weeklyDays: z.number().optional(),
   annualSaving: z.number().optional(),
   topRecommendation: z.string().optional(),
+  casebookTheme: z.string().optional(),
+  casebookThemeLabel: z.string().optional(),
   answers: z.object({
     industry: z.string().min(1),
     employeeSize: z.string().min(1),
@@ -142,6 +144,9 @@ function buildEmailBody(payload: ShindanSubmission): string {
       : []),
     ...(payload.annualSaving != null
       ? [`年間削減ポテンシャル: ${Math.round(payload.annualSaving / 10000)}万円`]
+      : []),
+    ...(payload.casebookTheme
+      ? [`活用集テーマ:     テーマ${payload.casebookTheme}「${payload.casebookThemeLabel || ''}」`]
       : []),
     '',
     '--- 回答内容 ---',
