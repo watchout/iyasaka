@@ -88,7 +88,7 @@ const flowIcons = [
   <div class="min-h-screen">
 
     <!-- ===== Section 1: ヒーロー ===== -->
-    <section data-section="hero" class="relative py-20 md:py-32 bg-gradient-to-br from-aiplus-navy via-aiplus-navy to-aiplus-blue overflow-hidden">
+    <section data-section="hero" class="relative pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-br from-aiplus-navy via-aiplus-navy to-aiplus-blue overflow-hidden">
       <!-- 背景パターン -->
       <div class="absolute inset-0 opacity-10">
         <div class="absolute top-1/4 right-0 w-96 h-96 bg-aiplus-blue rounded-full blur-3xl" />
@@ -97,7 +97,7 @@ const flowIcons = [
 
       <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
         <!-- 5社限定バッジ -->
-        <div class="inline-block px-4 py-1.5 bg-aiplus-cta/20 text-aiplus-cta rounded-full text-sm font-bold mb-8 border border-aiplus-cta/30">
+        <div class="inline-block px-4 py-1.5 bg-aiplus-cta/20 text-aiplus-cta rounded-full text-sm font-bold mb-5 border border-aiplus-cta/30">
           {{ heroCommon.narrowingBadge }}
         </div>
 
