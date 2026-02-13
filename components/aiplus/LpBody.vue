@@ -167,6 +167,7 @@ const flowIcons = [
             <div class="w-40 h-40 md:w-48 md:h-48 rounded-2xl bg-aiplus-light mx-auto md:mx-0 overflow-hidden">
               <img
                 :src="founderSection.avatar"
+                :srcset="`${founderSection.avatar} 1x, ${founderSection.avatar2x} 2x`"
                 :alt="founderSection.name"
                 class="w-full h-full object-cover"
                 loading="lazy"

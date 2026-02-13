@@ -91,7 +91,8 @@ export const founderSection = {
   heading: 'なぜ「弱電工事屋」がAI導入支援を？',
   name: '金子 裕司',
   role: '有限会社IYASAKA 代表取締役',
-  avatar: '/images/team/representative.jpg',
+  avatar: '/images/aiplus/founder.png',
+  avatar2x: '/images/aiplus/founder-2x.png',
   story:
     '最初の10年間、IT・システム開発の世界にいました。\n業務システムを作り、Webサービスを構築する。\n\nその後10年、弱電工事の現場に入りました。\n配線を引き、防犯カメラを付け、電話を直す。\n\nそこで見たのは、「ITなんてうちには関係ない」と言いながら、\n手作業の山に追われている社長さんの姿でした。\n\nITも現場も両方知っているからこそ、\n机上の空論ではない、本当に使えるAI活用をご提案できます。',
   credential: '創業20年 / IT・システム開発10年＋弱電工事10年',
