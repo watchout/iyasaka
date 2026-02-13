@@ -12,6 +12,8 @@ import type {
   HourOption,
   GoalOption,
   ScoreLevel,
+  CasebookTheme,
+  CasebookThemeInfo,
 } from '~/app/types/aiplus-shindan'
 
 // ---------------------------------------------------------------------------
@@ -275,5 +277,45 @@ export function getGoalRecommendation(goalId: string): { solution: string; descr
   return {
     solution: goal ? goal.solution : 'カスタムAI導入支援',
     description: goal ? goal.solutionDescription : '御社に最適なAI活用方法をご提案します。',
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 活用集テーマ振り分け（A/B/C）
+// ---------------------------------------------------------------------------
+
+const THEME_INDUSTRY_MAP: Record<string, CasebookTheme> = {
+  manufacturing: 'A',
+  construction: 'A',
+  professional: 'A',
+  retail: 'B',
+  medical: 'B',
+  hospitality: 'B',
+  it: 'C',
+  other: 'C',
+}
+
+const CASEBOOK_THEMES: Record<CasebookTheme, { label: string; description: string }> = {
+  A: {
+    label: '見積・書類のAI化',
+    description: '見積書・請求書・契約書などの書類作成をAIで自動化し、正確さとスピードを両立する活用事例集です。',
+  },
+  B: {
+    label: '予約・接客の自動化',
+    description: '予約管理・問い合わせ対応・接客をAIで自動化し、24時間対応と顧客満足度向上を実現する活用事例集です。',
+  },
+  C: {
+    label: 'データ集計・分析',
+    description: 'データ入力・集計・レポート作成をAIで効率化し、経営判断のスピードと精度を高める活用事例集です。',
+  },
+}
+
+export function getCasebookTheme(industryId: string): CasebookThemeInfo {
+  const theme = THEME_INDUSTRY_MAP[industryId] || 'C'
+  const info = CASEBOOK_THEMES[theme]
+  return {
+    theme,
+    label: info.label,
+    description: info.description,
   }
 }

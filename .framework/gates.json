@@ -1,0 +1,229 @@
+{
+  "gateA": {
+    "status": "passed",
+    "checks": [
+      {
+        "name": "package.json exists",
+        "passed": true,
+        "message": "package.json exists: found"
+      },
+      {
+        "name": "Dependencies installed (node_modules/)",
+        "passed": true,
+        "message": "Dependencies installed (node_modules/): found"
+      },
+      {
+        "name": "Environment config (.env or .env.example)",
+        "passed": true,
+        "message": "Environment config found"
+      },
+      {
+        "name": "Docker Compose config",
+        "passed": false,
+        "message": "docker-compose.yml not found. DB/Redis may not be available."
+      },
+      {
+        "name": "CI configuration (.github/workflows/)",
+        "passed": false,
+        "message": ".github/workflows/ not found. Run 'framework ci' to set up CI."
+      },
+      {
+        "name": "Framework management (.framework/)",
+        "passed": true,
+        "message": "Framework management (.framework/): found"
+      }
+    ],
+    "checkedAt": "2026-02-12T22:58:39.203Z"
+  },
+  "gateB": {
+    "status": "passed",
+    "checks": [
+      {
+        "name": "Implementation plan (.framework/plan.json)",
+        "passed": false,
+        "message": "No plan found. Run 'framework plan' to generate."
+      },
+      {
+        "name": "Plan contains features",
+        "passed": false,
+        "message": "Cannot check features — no plan exists."
+      },
+      {
+        "name": "Project profile configured (.framework/project.json)",
+        "passed": false,
+        "message": "No project profile. Run 'framework init' or 'framework retrofit'."
+      }
+    ],
+    "checkedAt": "2026-02-12T22:58:39.203Z"
+  },
+  "gateC": {
+    "status": "passed",
+    "checks": [
+      {
+        "name": "docs/design/core/SSOT-2_UI_STATE.md",
+        "passed": false,
+        "message": "docs/design/core/SSOT-2_UI_STATE.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/design/core/SSOT-2_UI_STATE.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/AIEO_REQUIREMENTS_SPEC.md",
+        "passed": false,
+        "message": "docs/ssot/AIEO_REQUIREMENTS_SPEC.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/AIEO_REQUIREMENTS_SPEC.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/B1-layout.md",
+        "passed": false,
+        "message": "docs/ssot/B1-layout.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/B1-layout.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/BRAND_MASTER_PROTOCOL.md",
+        "passed": false,
+        "message": "docs/ssot/BRAND_MASTER_PROTOCOL.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/BRAND_MASTER_PROTOCOL.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/BRAND_NARRATIVE.md",
+        "passed": false,
+        "message": "docs/ssot/BRAND_NARRATIVE.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/BRAND_NARRATIVE.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/CONTACT_FORM_SPEC.md",
+        "passed": false,
+        "message": "docs/ssot/CONTACT_FORM_SPEC.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/CONTACT_FORM_SPEC.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/HP_SAAS_MASTER_SPEC.md",
+        "passed": false,
+        "message": "docs/ssot/HP_SAAS_MASTER_SPEC.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/HP_SAAS_MASTER_SPEC.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/IYASAKA_2026_MASTER_STRATEGY.md",
+        "passed": false,
+        "message": "docs/ssot/IYASAKA_2026_MASTER_STRATEGY.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/IYASAKA_2026_MASTER_STRATEGY.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/LEAD_CAPTURE_PROTOCOL.md",
+        "passed": false,
+        "message": "docs/ssot/LEAD_CAPTURE_PROTOCOL.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/LEAD_CAPTURE_PROTOCOL.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/LP_STRUCTURE_SPECIFICATION.md",
+        "passed": false,
+        "message": "docs/ssot/LP_STRUCTURE_SPECIFICATION.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/LP_STRUCTURE_SPECIFICATION.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/PRODUCT_PAIN_POINTS.md",
+        "passed": false,
+        "message": "docs/ssot/PRODUCT_PAIN_POINTS.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/PRODUCT_PAIN_POINTS.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/ssot/iyasaka-overview.md",
+        "passed": false,
+        "message": "docs/ssot/iyasaka-overview.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/ssot/iyasaka-overview.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      },
+      {
+        "name": "docs/requirements/API_SPEC_S3.md",
+        "passed": true,
+        "message": "docs/requirements/API_SPEC_S3.md: All §3-E/F/G/H sections present",
+        "filePath": "docs/requirements/API_SPEC_S3.md",
+        "missingSections": []
+      },
+      {
+        "name": "docs/requirements/SSOT-0_PRD.md",
+        "passed": false,
+        "message": "docs/requirements/SSOT-0_PRD.md: Missing §3-E, §3-F, §3-G, §3-H",
+        "filePath": "docs/requirements/SSOT-0_PRD.md",
+        "missingSections": [
+          "§3-E",
+          "§3-F",
+          "§3-G",
+          "§3-H"
+        ]
+      }
+    ],
+    "checkedAt": "2026-02-12T22:58:39.211Z"
+  },
+  "updatedAt": "2026-02-12T22:58:39.211Z"
+}

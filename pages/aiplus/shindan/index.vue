@@ -171,6 +171,8 @@ const submitShindan = async (): Promise<void> => {
           weeklyDays: result.weeklyDays,
           annualSaving: result.annualSaving,
           topRecommendation: result.topRecommendation,
+          casebookTheme: result.casebookTheme.theme,
+          casebookThemeLabel: result.casebookTheme.label,
           answers: result.answers,
           source: 'aiplus_shindan',
         },

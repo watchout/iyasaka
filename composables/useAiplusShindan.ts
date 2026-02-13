@@ -15,6 +15,7 @@ import {
   calculateAnnualSaving,
   getIndustryData,
   getGoalRecommendation,
+  getCasebookTheme,
 } from '~/app/data/aiplus-shindan'
 
 const STORAGE_KEY = 'iyasaka_aiplus_shindan'
@@ -103,6 +104,7 @@ export function useAiplusShindan() {
     const annualSaving = calculateAnnualSaving(answers.employeeSize, answers.monthlyHours)
     const industryData = getIndustryData(answers.industry)
     const goalData = getGoalRecommendation(answers.improvementGoal)
+    const casebookTheme = getCasebookTheme(answers.industry)
 
     return {
       score,
@@ -115,6 +117,7 @@ export function useAiplusShindan() {
       topRecommendationDescription: goalData.description,
       industryAdoptionRate: industryData.rate,
       industryAdoptionNote: industryData.note,
+      casebookTheme,
       answers: { ...answers, manualTasks: [...answers.manualTasks], painPoints: [...answers.painPoints] },
       leadData: {
         company: leadData.company,
