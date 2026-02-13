@@ -56,9 +56,8 @@ const handleCancel = (): void => {
                 ありがとうございます
               </h3>
               <p class="text-sm text-gray-600 leading-relaxed">
-                3営業日以内に<br>
                 <strong class="text-aiplus-navy">{{ email }}</strong><br>
-                にレポートをお届けします。
+                に活用集とレポートをお届けします。
               </p>
             </div>
           </template>
@@ -72,7 +71,7 @@ const handleCancel = (): void => {
                 </svg>
               </div>
               <h3 class="text-lg font-bold text-aiplus-navy">
-                レポートをお送りします
+                活用集とレポートをお送りします
               </h3>
             </div>
 
@@ -82,8 +81,7 @@ const handleCancel = (): void => {
             </div>
 
             <p class="text-sm text-gray-600 mb-3">
-              以下の内容をまとめたレポートを<br>
-              <strong>3営業日以内</strong>にお届けします:
+              以下の内容をお届けします:
             </p>
 
             <ul class="space-y-2 mb-6">
@@ -91,19 +89,13 @@ const handleCancel = (): void => {
                 <svg class="w-4 h-4 text-aiplus-blue shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
-                <span>御社と同業他社のAI導入事例</span>
+                <span>御社の業種に合ったAI活用事例集</span>
               </li>
               <li class="flex items-start gap-2 text-sm text-gray-700">
                 <svg class="w-4 h-4 text-aiplus-blue shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
-                <span>御社に最適なAI活用プラン</span>
-              </li>
-              <li class="flex items-start gap-2 text-sm text-gray-700">
-                <svg class="w-4 h-4 text-aiplus-blue shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-                <span>想定される時間削減効果の詳細</span>
+                <span>御社専用のAI活用レポート</span>
               </li>
             </ul>
 
