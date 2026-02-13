@@ -208,18 +208,51 @@ if (import.meta.client) {
   <div class="min-h-screen bg-gray-50 py-8 md:py-16">
     <div class="max-w-xl mx-auto px-4">
 
-      <!-- ヘッダー -->
-      <div class="text-center mb-6">
+      <!-- ヒーローセクション（Q1のみ表示） -->
+      <div v-if="currentQuestion === 1" class="text-center mb-8">
         <img
           src="/images/aiplus/logo-icon.png"
           srcset="/images/aiplus/logo-icon.png 1x, /images/aiplus/logo-icon-2x.png 2x"
           alt="AIプラス"
-          class="h-14 md:h-16 w-auto mx-auto mb-3"
+          class="h-14 md:h-16 w-auto mx-auto mb-4"
         >
-        <h1 class="text-xl md:text-2xl font-gothic font-bold text-aiplus-navy">
+        <h1 class="text-2xl md:text-3xl font-gothic font-bold text-aiplus-navy leading-tight">
+          御社のAI活用ポテンシャルを<br>
+          <span class="text-aiplus-blue">無料で診断</span>します
+        </h1>
+        <p class="text-base md:text-lg text-gray-600 mt-3 leading-relaxed">
+          たった7問・<span class="font-bold text-aiplus-navy">約2分</span>で完了
+        </p>
+
+        <!-- 得られるもの -->
+        <div class="mt-6 bg-white rounded-xl border border-gray-200 p-5 text-left">
+          <p class="text-xs font-bold text-aiplus-blue tracking-wide mb-3">診断で得られるもの</p>
+          <ul class="space-y-2.5">
+            <li class="flex items-start gap-2.5 text-sm text-gray-700">
+              <span class="w-5 h-5 rounded-full bg-aiplus-blue/10 text-aiplus-blue flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">1</span>
+              <span><strong class="text-aiplus-navy">AI活用ポテンシャルスコア</strong> -- 御社のAI導入効果を数値で可視化</span>
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-gray-700">
+              <span class="w-5 h-5 rounded-full bg-aiplus-blue/10 text-aiplus-blue flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">2</span>
+              <span><strong class="text-aiplus-navy">業種別AI活用事例集</strong> -- 同業他社の成功パターンがわかる</span>
+            </li>
+            <li class="flex items-start gap-2.5 text-sm text-gray-700">
+              <span class="w-5 h-5 rounded-full bg-aiplus-blue/10 text-aiplus-blue flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">3</span>
+              <span><strong class="text-aiplus-navy">御社専用レポート</strong> -- 具体的なAI活用の第一歩がわかる</span>
+            </li>
+          </ul>
+        </div>
+
+        <p class="text-xs text-gray-400 mt-4">
+          営業電話なし。契約義務なし。
+        </p>
+      </div>
+
+      <!-- コンパクトヘッダー（Q2以降） -->
+      <div v-else class="text-center mb-6">
+        <h1 class="text-lg font-gothic font-bold text-aiplus-navy">
           AI活用診断
         </h1>
-        <p class="text-sm text-gray-500 mt-1">7つの質問で御社のAI活用ポテンシャルがわかります</p>
       </div>
 
       <!-- プログレスバー -->
