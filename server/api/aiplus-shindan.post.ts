@@ -1,8 +1,8 @@
 /**
  * AIPlus shindan (AI活用診断) -- リード送信 API
  *
- * 診断完了時のリードデータ + スコアをメール通知する。
- * v1 では DB 保存なし（メール通知のみ）。
+ * 診断完了時のリードデータ + スコアをメール通知し、
+ * Brevo にコンタクト登録してステップメールを起動する。
  */
 
 import { defineEventHandler, readBody, getRequestHeader, createError, getRequestIP } from 'h3'
@@ -117,8 +117,65 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  // -- Brevo Contact Registration --
+  await registerBrevoContact(config, payload)
+
   return { ok: true }
 })
+
+// ---------------------------------------------------------------------------
+// Brevo Contact Registration
+// ---------------------------------------------------------------------------
+
+const BREVO_LIST_SHINDAN = 3 // AIプラス_診断完了
+
+async function registerBrevoContact(
+  config: ReturnType<typeof useRuntimeConfig>,
+  payload: ShindanSubmission,
+): Promise<void> {
+  const apiKey = (config as Record<string, unknown>).brevoApiKey as string | undefined
+  if (!apiKey) {
+    return
+  }
+
+  const attributes: Record<string, string | number | boolean> = {
+    FIRSTNAME: payload.name,
+    COMPANY: payload.company,
+    INDUSTRY: payload.answers.industry,
+    SCORE: payload.score,
+    MONTHLY_HOURS: payload.answers.monthlyHours,
+    WEEKLY_DAYS: String(payload.weeklyDays ?? ''),
+    TOP_TASK: payload.topRecommendation ?? '',
+    CASEBOOK_THEME: payload.casebookTheme ?? '',
+    ANNUAL_SAVING: payload.annualSaving != null
+      ? `${Math.round(payload.annualSaving / 10000)}万円`
+      : '',
+    BOOKED: false,
+  }
+
+  const body = {
+    email: payload.email,
+    attributes,
+    listIds: [BREVO_LIST_SHINDAN],
+    updateEnabled: true,
+  }
+
+  try {
+    const res = await $fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'api-key': apiKey,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body,
+    })
+    console.info('[aiplus-shindan] Brevo contact registered:', payload.email, res)
+  } catch (err: unknown) {
+    // Brevo 失敗しても診断結果は返す
+    console.error('[aiplus-shindan] Brevo registration failed:', err)
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Email Body Builder

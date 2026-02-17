@@ -129,6 +129,10 @@ export const useAnalytics = () => {
     sendEvent('contact_submit')
   }
 
+  const trackCalendlyBooking = (): void => {
+    sendEvent('calendly_booking_complete')
+  }
+
   return {
     // Backward compatible
     track,
@@ -152,5 +156,6 @@ export const useAnalytics = () => {
 
     // Other
     trackContactSubmit,
+    trackCalendlyBooking,
   }
 }

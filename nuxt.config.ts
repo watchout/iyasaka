@@ -39,6 +39,9 @@ export default defineNuxtConfig({
     supabaseUrl: process.env.SUPABASE_URL || '',
     supabaseServiceKey: process.env.SUPABASE_SERVICE_KEY || '',
     slackLeadWebhook: process.env.SLACK_LEAD_WEBHOOK || '',
+    brevoApiKey: process.env.BREVO_API_KEY || '',
+    brevoSenderEmail: process.env.BREVO_SENDER_EMAIL || '',
+    brevoSenderName: process.env.BREVO_SENDER_NAME || '',
     geminiApiKey: process.env.GEMINI_API_KEY || '',
     geoSnapshotToken: process.env.GEO_SNAPSHOT_TOKEN || '',
     geo: {
