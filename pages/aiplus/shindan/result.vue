@@ -320,13 +320,15 @@ const handleContactDirect = (): void => {
 
         <!-- Sub CTA: Direct contact (text link) -->
         <div class="text-center mt-5">
-          <NuxtLink
-            to="/contact?p_id=aiplus"
+          <a
+            href="https://calendly.com/watchout-329/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             class="text-sm text-white/60 hover:text-white/90 transition-colors underline underline-offset-4"
             @click="handleContactDirect"
           >
             今すぐ専門家に相談したい方はこちら &rarr;
-          </NuxtLink>
+          </a>
         </div>
       </section>
 

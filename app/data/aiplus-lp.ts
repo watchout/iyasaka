@@ -89,7 +89,7 @@ export const heroCommon = {
   benefitsLabel: '5分の無料診断で、こんなことがわかります:',
   // v2: サブ導線
   subCtaText: 'すでにAI導入を検討中の方 → 30分無料相談',
-  subCtaLink: '/contact?p_id=aiplus',
+  subCtaLink: 'https://calendly.com/watchout-329/30min',
 }
 
 // ---------------------------------------------------------------------------
@@ -305,7 +305,7 @@ export const narrowing = {
   riskReversal: '営業電話なし。ご契約の義務なし。',
   // v2: サブ導線
   subCtaText: 'すでに検討中の方 → 30分無料相談',
-  subCtaLink: '/contact?p_id=aiplus',
+  subCtaLink: 'https://calendly.com/watchout-329/30min',
 }
 
 // ---------------------------------------------------------------------------
@@ -359,7 +359,7 @@ export const footerCta = {
   riskReversal: '営業電話なし。ご契約の義務なし。診断だけでもAI化の第一歩になります。',
   // v2: サブ導線
   subCtaText: 'すでにAI導入を検討中の方 → 30分無料相談',
-  subCtaLink: '/contact?p_id=aiplus',
+  subCtaLink: 'https://calendly.com/watchout-329/30min',
 }
 
 // ---------------------------------------------------------------------------

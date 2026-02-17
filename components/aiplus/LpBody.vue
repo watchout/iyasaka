@@ -148,12 +148,14 @@ const flowIcons = [
 
         <!-- v2: サブ導線 -->
         <p class="mt-4">
-          <NuxtLink
-            :to="heroCommon.subCtaLink"
+          <a
+            :href="heroCommon.subCtaLink"
+            target="_blank"
+            rel="noopener noreferrer"
             class="text-sm text-white/50 underline underline-offset-4 hover:text-white/70 transition-colors"
           >
             {{ heroCommon.subCtaText }}
-          </NuxtLink>
+          </a>
         </p>
 
         <!-- 説明文 -->
@@ -528,12 +530,14 @@ const flowIcons = [
 
         <!-- v2: サブ導線 -->
         <p class="mt-4">
-          <NuxtLink
-            :to="narrowing.subCtaLink"
+          <a
+            :href="narrowing.subCtaLink"
+            target="_blank"
+            rel="noopener noreferrer"
             class="text-sm text-white/50 underline underline-offset-4 hover:text-white/70 transition-colors"
           >
             {{ narrowing.subCtaText }}
-          </NuxtLink>
+          </a>
         </p>
       </div>
     </section>
@@ -605,12 +609,14 @@ const flowIcons = [
 
         <!-- v2: サブ導線 -->
         <p class="mt-4">
-          <NuxtLink
-            :to="footerCta.subCtaLink"
+          <a
+            :href="footerCta.subCtaLink"
+            target="_blank"
+            rel="noopener noreferrer"
             class="text-sm text-gray-400 underline underline-offset-4 hover:text-aiplus-blue transition-colors"
           >
             {{ footerCta.subCtaText }}
-          </NuxtLink>
+          </a>
         </p>
       </div>
     </section>
