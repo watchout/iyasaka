@@ -89,10 +89,16 @@ const flowIcons = [
 
     <!-- ===== Section 1: ヒーロー ===== -->
     <section data-section="hero" class="relative pt-10 pb-16 md:pt-16 md:pb-24 bg-gradient-to-br from-aiplus-navy via-aiplus-navy to-aiplus-blue overflow-hidden">
-      <!-- 背景パターン -->
-      <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-1/4 right-0 w-96 h-96 bg-aiplus-blue rounded-full blur-3xl" />
-        <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-aiplus-cta rounded-full blur-3xl opacity-30" />
+      <!-- 背景アニメーション -->
+      <div class="absolute inset-0 hero-bg-animated">
+        <div class="hero-glow hero-glow--blue" />
+        <div class="hero-glow hero-glow--orange" />
+        <div class="hero-particle" style="left:10%;animation-delay:0s;animation-duration:20s" />
+        <div class="hero-particle" style="left:25%;animation-delay:-4s;animation-duration:24s" />
+        <div class="hero-particle" style="left:45%;animation-delay:-8s;animation-duration:18s" />
+        <div class="hero-particle" style="left:60%;animation-delay:-12s;animation-duration:22s" />
+        <div class="hero-particle" style="left:78%;animation-delay:-2s;animation-duration:26s" />
+        <div class="hero-particle" style="left:90%;animation-delay:-6s;animation-duration:20s" />
       </div>
 
       <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
@@ -640,3 +646,74 @@ const flowIcons = [
 
   </div>
 </template>
+
+<style scoped>
+/* -- Hero background animation -- */
+.hero-bg-animated {
+  opacity: 0.12;
+}
+
+/* Glow orbs: shared base */
+.hero-glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(64px);
+  will-change: transform;
+}
+.hero-glow--blue {
+  top: 20%;
+  right: -5%;
+  width: 24rem;
+  height: 24rem;
+  background: var(--color-aiplus-blue, #3b82f6);
+  animation: glowDrift1 18s ease-in-out infinite;
+}
+.hero-glow--orange {
+  bottom: -5%;
+  left: 20%;
+  width: 20rem;
+  height: 20rem;
+  background: var(--color-aiplus-cta, #f59e0b);
+  opacity: 0.35;
+  animation: glowDrift2 22s ease-in-out infinite;
+}
+
+/* Floating particles */
+.hero-particle {
+  position: absolute;
+  bottom: -4px;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.6);
+  animation: particleFloat linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes glowDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(-40px, 30px) scale(1.15); }
+  66%      { transform: translate(20px, -20px) scale(0.9); }
+}
+
+@keyframes glowDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%      { transform: translate(50px, -30px) scale(1.1); }
+  70%      { transform: translate(-30px, 20px) scale(0.85); }
+}
+
+@keyframes particleFloat {
+  0%   { transform: translateY(0); opacity: 0; }
+  10%  { opacity: 0.25; }
+  90%  { opacity: 0.15; }
+  100% { transform: translateY(-800px); opacity: 0; }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow,
+  .hero-particle {
+    animation: none !important;
+  }
+}
+</style>
