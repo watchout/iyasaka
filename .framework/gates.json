@@ -1,6 +1,6 @@
 {
   "gateA": {
-    "status": "passed",
+    "status": "failed",
     "checks": [
       {
         "name": "package.json exists",
@@ -9,8 +9,8 @@
       },
       {
         "name": "Dependencies installed (node_modules/)",
-        "passed": true,
-        "message": "Dependencies installed (node_modules/): found"
+        "passed": false,
+        "message": "node_modules/ not found. Run 'npm install' or 'pnpm install'."
       },
       {
         "name": "Environment config (.env or .env.example)",
@@ -33,10 +33,10 @@
         "message": "Framework management (.framework/): found"
       }
     ],
-    "checkedAt": "2026-02-12T22:58:39.203Z"
+    "checkedAt": "2026-03-05T08:28:32.062Z"
   },
   "gateB": {
-    "status": "passed",
+    "status": "failed",
     "checks": [
       {
         "name": "Implementation plan (.framework/plan.json)",
@@ -51,26 +51,14 @@
       {
         "name": "Project profile configured (.framework/project.json)",
         "passed": false,
-        "message": "No project profile. Run 'framework init' or 'framework retrofit'."
+        "message": "No project profile. Run 'framework retrofit' again to generate .framework/project.json."
       }
     ],
-    "checkedAt": "2026-02-12T22:58:39.203Z"
+    "checkedAt": "2026-03-05T08:28:32.062Z"
   },
   "gateC": {
-    "status": "passed",
+    "status": "failed",
     "checks": [
-      {
-        "name": "docs/design/core/SSOT-2_UI_STATE.md",
-        "passed": false,
-        "message": "docs/design/core/SSOT-2_UI_STATE.md: Missing §3-E, §3-F, §3-G, §3-H",
-        "filePath": "docs/design/core/SSOT-2_UI_STATE.md",
-        "missingSections": [
-          "§3-E",
-          "§3-F",
-          "§3-G",
-          "§3-H"
-        ]
-      },
       {
         "name": "docs/ssot/AIEO_REQUIREMENTS_SPEC.md",
         "passed": false,
@@ -202,28 +190,9 @@
           "§3-G",
           "§3-H"
         ]
-      },
-      {
-        "name": "docs/requirements/API_SPEC_S3.md",
-        "passed": true,
-        "message": "docs/requirements/API_SPEC_S3.md: All §3-E/F/G/H sections present",
-        "filePath": "docs/requirements/API_SPEC_S3.md",
-        "missingSections": []
-      },
-      {
-        "name": "docs/requirements/SSOT-0_PRD.md",
-        "passed": false,
-        "message": "docs/requirements/SSOT-0_PRD.md: Missing §3-E, §3-F, §3-G, §3-H",
-        "filePath": "docs/requirements/SSOT-0_PRD.md",
-        "missingSections": [
-          "§3-E",
-          "§3-F",
-          "§3-G",
-          "§3-H"
-        ]
       }
     ],
-    "checkedAt": "2026-02-12T22:58:39.211Z"
+    "checkedAt": "2026-03-05T08:28:32.067Z"
   },
-  "updatedAt": "2026-02-12T22:58:39.211Z"
+  "updatedAt": "2026-03-05T08:28:32.067Z"
 }
