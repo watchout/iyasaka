@@ -18,11 +18,13 @@ onMounted(() => {
         observer.disconnect()
       }
     },
-    { threshold: 0.15 }
+    { threshold: 0.05, rootMargin: '100px' }
   )
   if (sectionRef.value) {
     observer.observe(sectionRef.value)
   }
+  // フォールバック: 2秒後に全街区を表示
+  setTimeout(() => { isVisible.value = true }, 2000)
 })
 
 // 画像パターンのランダム選択
@@ -31,7 +33,7 @@ const imagePattern = computed(() => {
 })
 
 const imagePath = computed(() => {
-  return `/images/districts/${props.district.id}/pattern-${imagePattern.value}.webp`
+  return `/images/districts/${props.district.id}/pattern-${imagePattern.value}.png`
 })
 
 // ニュースは最初の2件を表示

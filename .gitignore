@@ -43,3 +43,6 @@ ecosystem.config.cjs
 # Original logo source files (optimized versions in public/images/)
 aiplus_logo.png
 aiplus_logo2.png
+.mcp.json
+.playwright-mcp/
+hp-*.png

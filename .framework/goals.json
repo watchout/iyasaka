@@ -1,0 +1,131 @@
+{
+  "version": "1.0.0",
+  "project": "iyasaka",
+  "updatedAt": "2026-04-01T07:30:00.000Z",
+  "mission": "「今ある『不』を、未来の『光』へ。」中小企業DX支援企業IYASAKAの公式サイト＆HP SaaS。診断→リード獲得→CRM連携の一気通貫マーケティングプラットフォーム",
+  "currentPhase": "Phase 1 Week 2: プロダクトLP・CRM・法的ページ",
+  "goals": [
+    {
+      "id": "G-PHASE1",
+      "name": "Phase 1 完了（HP基盤＋リード獲得）",
+      "description": "HP基盤構築、診断システム、リード獲得フロー、CRM連携の完成",
+      "priority": "P0",
+      "status": "in_progress",
+      "steps": [
+        { "id": "P1-W1", "name": "Week 1: HP基盤＋診断システム", "status": "done", "details": "8セクションHP、5問診断、結果ページ完了" },
+        { "id": "P1-W2-LP", "name": "Week 2: プロダクトLPリファクタ", "status": "ready", "details": "5プロダクトLP → HP誘導CTA化" },
+        { "id": "P1-W2-CRM", "name": "Week 2: CRM API連携", "status": "ready", "details": "Supabase保存、Slack通知、Brevoメール" },
+        { "id": "P1-W2-LEGAL", "name": "Week 2: 法的ページ", "status": "ready", "details": "プライバシー・利用規約・特商法" },
+        { "id": "P1-W2-THANKS", "name": "Week 2: サンクスページ", "status": "ready" }
+      ]
+    },
+    {
+      "id": "G-PHASE2",
+      "name": "Phase 2（信頼＆実績）",
+      "description": "代表プロフィール、導入事例、メディア掲載、プレスリリース",
+      "priority": "P1",
+      "status": "pending",
+      "steps": [
+        { "id": "P2-STORY", "name": "代表ストーリー", "status": "pending" },
+        { "id": "P2-CASES", "name": "導入事例", "status": "pending" },
+        { "id": "P2-MEDIA", "name": "メディアロゴバー", "status": "pending" },
+        { "id": "P2-PRESS", "name": "プレス・ニュース", "status": "pending" }
+      ]
+    },
+    {
+      "id": "G-PHASE3",
+      "name": "Phase 3（パフォーマンス最適化）",
+      "description": "Lighthouse 90+、セキュリティ、A/Bテスト、本番デプロイ",
+      "priority": "P1",
+      "status": "pending"
+    },
+    {
+      "id": "G-KPI",
+      "name": "KPI達成",
+      "description": "CVR 8%以上、月間リード150件以上、Lighthouse 90+",
+      "priority": "P0",
+      "status": "in_progress"
+    }
+  ],
+  "backlog": [
+    {
+      "id": "BL-001",
+      "name": "プロダクトLPリファクタリング",
+      "feature": "P1-W2-LP",
+      "priority": "P0",
+      "status": "ready",
+      "description": "5プロダクトLP（mieru-plus, jakuden-plus, omotenasu-ai, ai-plus, haishin-plus）からフォーム削除、HP診断への誘導CTA設置",
+      "estimatedTasks": ["LP-REFACTOR", "LP-SIMPLE-DIAGNOSIS", "LP-TEST"]
+    },
+    {
+      "id": "BL-002",
+      "name": "CRM API統合",
+      "feature": "P1-W2-CRM",
+      "priority": "P0",
+      "status": "ready",
+      "description": "server/api/leads.post.ts実装。Supabaseリード保存、Slack通知、Brevoメール連携",
+      "estimatedTasks": ["CRM-API", "CRM-SLACK", "CRM-BREVO", "CRM-TEST"]
+    },
+    {
+      "id": "BL-003",
+      "name": "法的ページ作成",
+      "feature": "P1-W2-LEGAL",
+      "priority": "P0",
+      "status": "ready",
+      "description": "プライバシーポリシー、利用規約、特定商取引法に基づく表記",
+      "estimatedTasks": ["LEGAL-PRIVACY", "LEGAL-TERMS", "LEGAL-COMMERCIAL"]
+    },
+    {
+      "id": "BL-004",
+      "name": "サンクスページ",
+      "feature": "P1-W2-THANKS",
+      "priority": "P0",
+      "status": "ready",
+      "description": "お問い合わせ完了確認ページ + コンバージョン計測"
+    },
+    {
+      "id": "BL-005",
+      "name": "代表ストーリーページ",
+      "feature": "P2-STORY",
+      "priority": "P1",
+      "status": "pending",
+      "description": "代表プロフィール＋創業ストーリー",
+      "blockedBy": ["BL-001", "BL-002"]
+    },
+    {
+      "id": "BL-006",
+      "name": "導入事例ページ",
+      "feature": "P2-CASES",
+      "priority": "P1",
+      "status": "pending",
+      "description": "業種別ケーススタディ（A/B/Cテーマルーティング実装済み）"
+    },
+    {
+      "id": "BL-007",
+      "name": "メディアロゴバー",
+      "feature": "P2-MEDIA",
+      "priority": "P1",
+      "status": "pending",
+      "description": "メディア掲載実績のロゴ表示コンポーネント"
+    },
+    {
+      "id": "BL-008",
+      "name": "パフォーマンス最適化",
+      "feature": "P3",
+      "priority": "P1",
+      "status": "pending",
+      "description": "Lighthouse全デバイス90+、画像最適化、バンドルサイズ削減",
+      "blockedBy": ["BL-001", "BL-002", "BL-003", "BL-004"]
+    }
+  ],
+  "stats": {
+    "totalPhases": 4,
+    "currentPhase": 1,
+    "phase1Progress": "70%",
+    "kpiTargets": {
+      "cvr": "8%",
+      "monthlyLeads": 150,
+      "lighthouse": 90
+    }
+  }
+}
