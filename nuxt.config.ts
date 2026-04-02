@@ -63,6 +63,7 @@ export default defineNuxtConfig({
       ga4Id: process.env.NUXT_PUBLIC_GA4_ID || '',
       gadsId: process.env.NUXT_PUBLIC_GADS_ID || '',
       calendlyUrl: process.env.NUXT_PUBLIC_CALENDLY_URL || '',
+      hpVersion: process.env.HP_VERSION || 'v1',
     }
   },
 
