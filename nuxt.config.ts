@@ -134,6 +134,13 @@ export default defineNuxtConfig({
     }
   },
 
+  // リダイレクト設定
+  routeRules: {
+    '/products/ai-plus': { redirect: { to: '/aiplus', statusCode: 301 } },
+    '/diagnosis': { redirect: { to: '/aiplus/shindan', statusCode: 301 } },
+    '/diagnosis/**': { redirect: { to: '/aiplus/shindan', statusCode: 301 } },
+  },
+
   // ルーティング設定 / Nitro
   nitro: {
     // prerender: {

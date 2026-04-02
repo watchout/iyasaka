@@ -14,9 +14,9 @@ if (hpVersion === 'v2') {
 } else {
   useSeoMeta({
     title: 'IYASAKA | 不を解消し、事業を"IYASAKA"へ。',
-    description: '弱電・電気工事を土台に、ホテルAI、動画配信、現場DX、カスタムAI、dev-OSで現場の「あらゆる不」を技術で解消します。',
+    description: '弱電・電気工事を土台に、ホテルAI、動画配信、現場DX、カスタムAIで現場の「あらゆる不」を技術で解消します。',
     ogTitle: 'IYASAKA | 不を解消し、事業を"IYASAKA"へ。',
-    ogDescription: '弱電・電気工事を土台に、ホテルAI、動画配信、現場DX、カスタムAI、dev-OSで現場の「あらゆる不」を技術で解消します。',
+    ogDescription: '弱電・電気工事を土台に、ホテルAI、動画配信、現場DX、カスタムAIで現場の「あらゆる不」を技術で解消します。',
     ogType: 'website'
   })
 }

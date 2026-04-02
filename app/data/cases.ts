@@ -68,7 +68,7 @@ export const caseStudies: CaseStudy[] = [
     clientName: '東京カンファレンスセンター（仮名）',
     industry: 'イベント・会場運営',
     location: '東京都',
-    services: ['配信プラス', 'オンサイト保守プラス'],
+    services: ['配信プラス', '弱電プラス'],
     featured: true,
     thumbnail: '/images/cases/case-1-thumb.jpg',
     heroImage: '/images/cases/case-1-hero.jpg',
@@ -129,11 +129,11 @@ export const caseStudies: CaseStudy[] = [
     clientName: 'リゾートホテルグループ（仮名）',
     industry: 'ホテル・宿泊業',
     location: '神奈川県・静岡県',
-    services: ['多言語プラス', 'AIプラス', 'おもてなすAI'],
+    services: ['OmotenasuAI', 'AIプラス', 'OmotenasuAI'],
     featured: true,
     thumbnail: '/images/cases/case-2-thumb.jpg',
     heroImage: '/images/cases/case-2-hero.jpg',
-    summary: '5施設を展開するリゾートホテルグループ。インバウンド需要回復に伴う多言語対応の課題を、多言語プラスとAIコンシェルジュで解決。',
+    summary: '5施設を展開するリゾートホテルグループ。インバウンド需要回復に伴う多言語対応の課題を、OmotenasuAIとAIコンシェルジュで解決。',
     
     challenge: {
       title: '導入前の課題',
@@ -235,7 +235,7 @@ export const caseStudies: CaseStudy[] = [
     clientName: '製造業 M社（仮名）',
     industry: '製造業',
     location: '群馬県',
-    services: ['オンサイト保守プラス', '弱電プラス'],
+    services: ['弱電プラス', '弱電プラス'],
     featured: false,
     thumbnail: '/images/cases/case-4-thumb.jpg',
     summary: '工場内の弱電設備保守を外部委託。リモート監視と計画保守で、突発故障を大幅削減。',
@@ -332,11 +332,11 @@ export const caseCategories = [
 // 事例からサービスへのマッピング
 export const serviceLabels: Record<string, string> = {
   '配信プラス': 'haishin-plus',
-  '多言語プラス': 'multilingual-plus',
+  'OmotenasuAI': 'multilingual-plus',
   'AIプラス': 'ai-plus',
-  'オンサイト保守プラス': 'onsite-plus',
+  '弱電プラス': 'onsite-plus',
   '弱電プラス': 'weakcurrent-plus',
-  'おもてなすAI': 'omotenasuai',
+  'OmotenasuAI': 'omotenasuai',
   'AI導入支援': 'ai-consulting'
 }
 

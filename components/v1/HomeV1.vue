@@ -31,8 +31,8 @@ const stats = [
             事業を<span class="text-akatsuki">"IYASAKA"</span>へ。
           </h1>
           <p class="text-lg md:text-xl text-sumi/80 mb-8 max-w-2xl">
-            弱電・電気工事から、ホテルAI、動画配信、現場DX、カスタムAI、dev-OSまで。<br>
-            現場の「あらゆる不」を技術で解消し、"止まる前"に手を打つ。IYASAKA。
+            現場の「不」を、AIと技術で解消する。<br>
+            止まる前に手を打つ。それがIYASAKA。
           </p>
           
           <!-- CTA -->

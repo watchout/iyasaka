@@ -30,8 +30,7 @@ export const headerNav: NavItem[] = [
           { label: '弱電プラス', to: '/products/jakuden-plus' },
           { label: 'OmotenasuAI', to: '/products/omotenasu-ai' },
           { label: '配信プラス', to: '/products/haishin-plus' },
-          { label: 'AIプラス', to: '/products/ai-plus' },
-          { label: 'dev-OS', to: '/products/dev-os' }
+          { label: 'AIプラス', to: '/products/ai-plus' }
         ]
       }
     ]
@@ -61,7 +60,6 @@ export const footerSections = {
   organize: [
     { label: '弱電プラス', to: '/products/jakuden-plus' },
     { label: 'ミエルプラス', to: '/products/mieru-plus' },
-    { label: 'dev-OS', to: '/products/dev-os' },
     { label: 'インフラ・設備', to: '/infra' }
   ],
   // つなぐ（Connect）

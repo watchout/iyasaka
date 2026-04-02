@@ -119,18 +119,6 @@ const onSubmit = async () => {
         >
       </label>
       <label class="text-sm font-medium text-sumi">
-        会社名（必須）
-        <input
-          v-model="form.company"
-          type="text"
-          required
-          class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-matsuha focus:border-matsuha"
-        >
-      </label>
-    </div>
-
-    <div class="grid gap-4 md:grid-cols-2">
-      <label class="text-sm font-medium text-sumi">
         メールアドレス（必須）
         <input
           v-model="form.email"
@@ -139,49 +127,14 @@ const onSubmit = async () => {
           class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-matsuha focus:border-matsuha"
         >
       </label>
-      <label class="text-sm font-medium text-sumi">
-        電話番号（任意）
-        <input
-          v-model="form.phone"
-          type="tel"
-          class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-matsuha focus:border-matsuha"
-        >
-      </label>
-    </div>
-
-    <div class="grid gap-4 md:grid-cols-2">
-      <label class="text-sm font-medium text-sumi">
-        役職・担当（任意）
-        <input
-          v-model="form.role"
-          type="text"
-          class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-matsuha focus:border-matsuha"
-        >
-      </label>
-      <div>
-        <span class="text-sm font-medium text-sumi">ご検討フェーズ（任意）</span>
-        <div class="mt-2 flex flex-wrap gap-3 text-sm">
-          <label class="inline-flex items-center gap-1">
-            <input v-model="form.budgetPhase" type="radio" value="research" class="text-matsuha focus:ring-matsuha">
-            <span>情報収集中</span>
-          </label>
-          <label class="inline-flex items-center gap-1">
-            <input v-model="form.budgetPhase" type="radio" value="comparison" class="text-matsuha focus:ring-matsuha">
-            <span>比較検討中</span>
-          </label>
-          <label class="inline-flex items-center gap-1">
-            <input v-model="form.budgetPhase" type="radio" value="ready" class="text-matsuha focus:ring-matsuha">
-            <span>導入前提</span>
-          </label>
-        </div>
-      </div>
     </div>
 
     <label class="block text-sm font-medium text-sumi">
-      ご相談内容・現状の設備など（任意）
+      ご相談内容・現在のお悩み（必須）
       <textarea
         v-model="form.notes"
         rows="4"
+        required
         class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-matsuha focus:border-matsuha"
       />
     </label>

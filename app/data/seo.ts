@@ -1,7 +1,7 @@
 export const defaultSEO = {
   title: 'IYASAKA｜弱電・ホテルAI・動画配信・現場DX',
   description:
-    '弱電・電気工事を土台に、ホテルAI、動画配信、現場DX（ミエルボード/ストック/ドライブ）、カスタムAI、dev-OSで、現場の「不」を技術で解消します。',
+    '弱電・電気工事を土台に、ホテルAI、動画配信、現場DX（ミエルボード/ストック/ドライブ）、カスタムAIで、現場の「不」を技術で解消します。',
   ogImage: '/og.jpg',
   twitterCard: 'summary_large_image',
   robots: { index: true, follow: true }
