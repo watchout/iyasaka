@@ -14,7 +14,7 @@ export const copyPool: Record<string, CopyPattern[]> = {
       id: 'hero_main_001',
       section: 'hero',
       slot: 'main_copy',
-      text: 'この街は、AIが動かしている。',
+      text: 'ここでは、AIが動いている。',
       source: 'initial-launch',
       status: 'active',
       weight: 50

@@ -68,7 +68,7 @@ onMounted(() => {
       <div class="max-w-3xl mx-auto text-center">
         <h1 class="font-mincho text-4xl md:text-5xl lg:text-6xl text-gray-900 leading-tight mb-6 drop-shadow-sm">
           <template v-if="heroCopy?.id === 'hero_main_001'">
-            この街は、<span class="text-amber-600">AIが動かしている。</span>
+            ここでは、<span class="text-amber-600">AIが動いている。</span>
           </template>
           <template v-else>
             {{ heroCopy?.text }}
