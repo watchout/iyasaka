@@ -17,7 +17,7 @@ export interface District {
 export const districts: District[] = [
   {
     id: 'hotel',
-    name: 'ホテル街区',
+    name: 'ホテル',
     nameEn: 'Hotel District',
     icon: 'hotel',
     tagline: '深夜2時、フロントに誰もいない。でもお客様は待っている。',
@@ -36,7 +36,7 @@ export const districts: District[] = [
   },
   {
     id: 'infra',
-    name: '弱電街区',
+    name: '弱電',
     nameEn: 'Infrastructure District',
     icon: 'bolt',
     tagline: 'ネットが繋がらない。カメラが映らない。誰に電話すればいい？',
@@ -55,7 +55,7 @@ export const districts: District[] = [
   },
   {
     id: 'venue',
-    name: '配信/イベント街区',
+    name: '配信/イベント',
     nameEn: 'Streaming District',
     icon: 'video',
     tagline: '隣の会議室は配信で月100万稼いでいる。あなたの会議室は？',
@@ -74,7 +74,7 @@ export const districts: District[] = [
   },
   {
     id: 'genba',
-    name: '現場DX街区',
+    name: '現場DX',
     nameEn: 'Field DX District',
     icon: 'clipboard',
     tagline: 'ホワイトボードに書いてあることは、もう3時間前の話だ。',
@@ -93,7 +93,7 @@ export const districts: District[] = [
   },
   {
     id: 'ai',
-    name: 'AI街区',
+    name: 'AI',
     nameEn: 'AI District',
     icon: 'cpu',
     tagline: 'AI、気になるけど誰に聞けばいいかわからない。',

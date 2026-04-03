@@ -5,9 +5,9 @@ const hpVersion = config.public.hpVersion || 'v1'
 // SEO（バージョン別）
 if (hpVersion === 'v2') {
   useSeoMeta({
-    title: 'IYASAKA | AIが息づく街',
+    title: 'IYASAKA | 現場の不をAIと技術で解消する',
     description: 'ホテルAI、弱電DX、配信、現場可視化、カスタムAI。各業界に特化したAIソリューションで、現場の「不」を「光」へ。',
-    ogTitle: 'IYASAKA | AIが息づく街',
+    ogTitle: 'IYASAKA | 現場の不をAIと技術で解消する',
     ogDescription: '各業界に特化したAIソリューションで、現場の「不」を「光」へ。',
     ogType: 'website'
   })
