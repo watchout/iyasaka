@@ -43,11 +43,6 @@ function closeChat() {
 
     <V2Ending />
 
-    <div class="py-6 bg-gray-100 text-center">
-      <p class="text-gray-400 text-sm">
-        このサイトはAIが生成・構築・運用しています
-      </p>
-    </div>
 
     <!-- チャットパネル -->
     <Teleport to="body">

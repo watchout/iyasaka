@@ -106,7 +106,14 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-400 animate-bounce">
+    <!-- AI生成表示 -->
+    <div class="absolute bottom-16 left-1/2 -translate-x-1/2 z-10">
+      <p class="text-sm md:text-base font-medium text-gray-800 bg-white/60 backdrop-blur-sm px-6 py-2 rounded-full shadow-sm">
+        このサイトはAIがリアルタイムで生成・構築・運用しています
+      </p>
+    </div>
+
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-gray-400 animate-bounce">
       <UIcon name="i-heroicons-chevron-down" class="w-8 h-8" />
     </div>
   </section>
