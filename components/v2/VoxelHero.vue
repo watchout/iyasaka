@@ -17,6 +17,14 @@ function navigateToDistrict(id: string) {
   emit('navigate-district', id)
 }
 
+const districtLabels: Record<string, string> = {
+  hotel: 'ホテル',
+  infra: '弱電',
+  venue: '配信/イベント',
+  genba: '現場DX',
+  ai: 'AI'
+}
+
 const districtIcons: Record<string, string> = {
   hotel: 'i-heroicons-building-office',
   infra: 'i-heroicons-bolt',
@@ -27,25 +35,24 @@ const districtIcons: Record<string, string> = {
 </script>
 
 <template>
-  <section class="relative min-h-[80vh] flex items-center bg-[#0f1a2e] overflow-hidden">
-    <!-- 背景グラデーション -->
-    <div class="absolute inset-0 bg-gradient-to-b from-[#0f1a2e] via-[#152238] to-[#1a2d4d]" />
-
+  <section class="relative min-h-[80vh] flex items-center overflow-hidden">
     <!-- ボクセルアート背景画像 -->
-    <div class="absolute inset-0 opacity-30">
+    <div class="absolute inset-0">
       <img
         :src="`/images/hero/pattern-${Math.floor(Math.random() * 4) + 1}.png`"
         alt="IYASAKA Town"
         class="w-full h-full object-cover"
       >
+      <!-- オーバーレイ -->
+      <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/20 to-white/60" />
     </div>
 
     <!-- コンテンツ -->
     <div class="relative z-10 container mx-auto px-4 py-20 lg:py-32">
       <div class="max-w-3xl mx-auto text-center">
         <!-- キャッチコピー -->
-        <h1 class="font-mincho text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-6">
-          この街は、<span class="text-amber-400">AIが動かしている。</span>
+        <h1 class="font-mincho text-4xl md:text-5xl lg:text-6xl text-gray-900 leading-tight mb-6 drop-shadow-sm">
+          この街は、<span class="text-amber-600">AIが動かしている。</span>
         </h1>
 
         <!-- テキスト入力欄 -->
@@ -55,34 +62,34 @@ const districtIcons: Record<string, string> = {
               v-model="query"
               type="text"
               placeholder="あなたの業種と悩みを教えてください"
-              class="w-full px-6 py-4 pr-14 bg-white/10 backdrop-blur border border-white/20 rounded-full text-white placeholder-white/50 focus:outline-none focus:border-amber-400/60 focus:ring-2 focus:ring-amber-400/20 transition-all"
+              class="w-full px-6 py-4 pr-14 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full text-gray-900 placeholder-gray-400 shadow-lg focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/30 transition-all"
             >
             <button
               type="submit"
-              class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-amber-400 text-[#0f1a2e] rounded-full hover:bg-amber-300 transition-colors"
+              class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-amber-500 text-white rounded-full hover:bg-amber-600 transition-colors"
             >
               <span class="text-lg">&#8594;</span>
             </button>
           </div>
         </form>
 
-        <!-- 街区ショートカットボタン -->
+        <!-- ショートカットボタン -->
         <div class="flex flex-wrap justify-center gap-3">
           <button
             v-for="district in districts"
             :key="district.id"
-            class="flex items-center gap-2 px-5 py-3 bg-white/5 backdrop-blur border border-white/10 rounded-full text-white/80 hover:bg-white/10 hover:border-amber-400/30 hover:text-amber-400 transition-all"
+            class="flex items-center gap-2 px-5 py-3 bg-white/70 backdrop-blur-sm border border-gray-200 rounded-full text-gray-700 shadow-sm hover:bg-white hover:border-amber-400 hover:text-amber-600 transition-all"
             @click="navigateToDistrict(district.id)"
           >
             <UIcon :name="districtIcons[district.id] || 'i-heroicons-building-office'" class="w-5 h-5" />
-            <span class="text-sm font-medium">{{ district.name.replace('街区', '') }}</span>
+            <span class="text-sm font-medium">{{ districtLabels[district.id] || district.id }}</span>
           </button>
         </div>
       </div>
     </div>
 
     <!-- 下向き矢印 -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 animate-bounce">
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-400 animate-bounce">
       <UIcon name="i-heroicons-chevron-down" class="w-8 h-8" />
     </div>
   </section>
