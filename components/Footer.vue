@@ -109,8 +109,13 @@
 
       <!-- ミッション -->
       <div class="mt-12 pt-8 border-t border-white/10 text-center">
-        <p class="text-lg font-medium text-white/80">
-          {{ site.brand.mission }}
+        <p
+          class="text-lg font-medium text-white/80"
+          data-section="footer"
+          data-slot="mission"
+          :data-pattern-id="missionCopy?.id"
+        >
+          {{ missionCopy?.text || site.brand.mission }}
         </p>
       </div>
 
@@ -142,4 +147,7 @@
 <script setup lang="ts">
 import { site } from '~/app/site'
 import { footerSections, legalLinks } from '~/app/navigation'
+
+const { getCopy } = useCopyTest()
+const missionCopy = computed(() => getCopy('footer/mission'))
 </script>

@@ -149,6 +149,26 @@ export const copyPool: Record<string, CopyPattern[]> = {
       weight: 50
     }
   ],
+  'footer/mission': [
+    {
+      id: 'footer_mission_001',
+      section: 'footer',
+      slot: 'mission',
+      text: '今ある「不」を、未来の「光」へ。',
+      source: 'initial-launch',
+      status: 'active',
+      weight: 50
+    },
+    {
+      id: 'footer_mission_002',
+      section: 'footer',
+      slot: 'mission',
+      text: '現場の痛みを知っているから、技術だけでは終わらない。',
+      source: 'c-suite-session-20260403',
+      status: 'active',
+      weight: 50
+    }
+  ],
   'ending/main_copy': [
     {
       id: 'ending_main_001',

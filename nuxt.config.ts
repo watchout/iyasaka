@@ -134,11 +134,16 @@ export default defineNuxtConfig({
     }
   },
 
-  // リダイレクト設定
+  // ルーティングルール
   routeRules: {
     '/products/ai-plus': { redirect: { to: '/aiplus', statusCode: 301 } },
     '/diagnosis': { redirect: { to: '/aiplus/shindan', statusCode: 301 } },
     '/diagnosis/**': { redirect: { to: '/aiplus/shindan', statusCode: 301 } },
+    // A/Bテスト対象ページはキャッシュしない
+    '/': { headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' } },
+    // 静的アセットはキャッシュ
+    '/_nuxt/**': { headers: { 'Cache-Control': 'public, max-age=31536000, immutable' } },
+    '/images/**': { headers: { 'Cache-Control': 'public, max-age=86400' } },
   },
 
   // ルーティング設定 / Nitro
