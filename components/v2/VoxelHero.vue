@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { districts } from '@/app/data/districts'
 
+const { getCopy, getPatternId, trackImpression } = useCopyTest()
+
+const heroCopy = computed(() => getCopy('hero/main_copy'))
+const heroSubCopy = computed(() => getCopy('hero/sub_copy'))
+
 const query = ref('')
 const emit = defineEmits<{
   (e: 'navigate-district', id: string): void
@@ -32,10 +37,22 @@ const districtIcons: Record<string, string> = {
   genba: 'i-heroicons-clipboard-document-list',
   ai: 'i-heroicons-cpu-chip'
 }
+
+const heroRef = ref<HTMLElement>()
+onMounted(() => {
+  if (heroCopy.value) {
+    trackImpression('hero', 'main_copy', heroCopy.value.id)
+  }
+})
 </script>
 
 <template>
-  <section class="relative min-h-[80vh] flex items-center overflow-hidden">
+  <section
+    ref="heroRef"
+    class="relative min-h-[80vh] flex items-center overflow-hidden"
+    data-section="hero"
+    :data-pattern-id="heroCopy?.id"
+  >
     <!-- ボクセルアート背景画像 -->
     <div class="absolute inset-0">
       <img
@@ -43,25 +60,27 @@ const districtIcons: Record<string, string> = {
         alt="IYASAKA Town"
         class="w-full h-full object-cover"
       >
-      <!-- オーバーレイ -->
       <div class="absolute inset-0 bg-gradient-to-b from-white/40 via-white/20 to-white/60" />
     </div>
 
     <!-- コンテンツ -->
     <div class="relative z-10 container mx-auto px-4 py-20 lg:py-32">
       <div class="max-w-3xl mx-auto text-center">
-        <!-- キャッチコピー -->
         <h1 class="font-mincho text-4xl md:text-5xl lg:text-6xl text-gray-900 leading-tight mb-6 drop-shadow-sm">
-          この街は、<span class="text-amber-600">AIが動かしている。</span>
+          <template v-if="heroCopy?.id === 'hero_main_001'">
+            この街は、<span class="text-amber-600">AIが動かしている。</span>
+          </template>
+          <template v-else>
+            {{ heroCopy?.text }}
+          </template>
         </h1>
 
-        <!-- テキスト入力欄 -->
         <form class="max-w-xl mx-auto mb-10" @submit.prevent="handleSubmit">
           <div class="relative">
             <input
               v-model="query"
               type="text"
-              placeholder="あなたの業種と悩みを教えてください"
+              :placeholder="heroSubCopy?.text || 'あなたの業種と悩みを教えてください'"
               class="w-full px-6 py-4 pr-14 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full text-gray-900 placeholder-gray-400 shadow-lg focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/30 transition-all"
             >
             <button
@@ -73,7 +92,6 @@ const districtIcons: Record<string, string> = {
           </div>
         </form>
 
-        <!-- ショートカットボタン -->
         <div class="flex flex-wrap justify-center gap-3">
           <button
             v-for="district in districts"
@@ -88,7 +106,6 @@ const districtIcons: Record<string, string> = {
       </div>
     </div>
 
-    <!-- 下向き矢印 -->
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-400 animate-bounce">
       <UIcon name="i-heroicons-chevron-down" class="w-8 h-8" />
     </div>

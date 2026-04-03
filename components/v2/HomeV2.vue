@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { districts } from '@/app/data/districts'
 
+const { initSelections } = useCopyTest()
+initSelections()
+
 const activeChatDistrict = ref<string | null>(null)
 
 function handleNavigateDistrict(id: string) {

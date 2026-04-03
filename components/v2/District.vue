@@ -6,6 +6,11 @@ const props = defineProps<{
   index: number
 }>()
 
+const { getCopy, trackImpression, trackClick, trackLpTransition } = useCopyTest()
+
+const sectionKey = computed(() => `section_${props.district.id}`)
+const headlineCopy = computed(() => getCopy(`${sectionKey.value}/headline`))
+
 const isReversed = computed(() => props.index % 2 !== 0)
 const sectionRef = ref<HTMLElement>()
 const isVisible = ref(false)
@@ -52,6 +57,8 @@ const emit = defineEmits<{
       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
       index % 2 === 0 ? 'bg-[#f8f7f5]' : 'bg-white'
     ]"
+    :data-section="sectionKey"
+    :data-pattern-id="headlineCopy?.id"
   >
     <div class="container mx-auto px-4">
       <div
@@ -67,9 +74,9 @@ const emit = defineEmits<{
 
         <!-- テキストエリア -->
         <div :class="{ 'lg:col-start-1': isReversed }">
-          <!-- この業界の「不」（街区名は表示しない） -->
+          <!-- この業界の「不」（A/Bテスト対象） -->
           <p class="font-mincho text-xl md:text-2xl text-gray-900 mb-6 leading-relaxed">
-            「{{ district.tagline }}」
+            「{{ headlineCopy?.text || district.tagline }}」
           </p>
 
           <!-- AI相談役 -->
